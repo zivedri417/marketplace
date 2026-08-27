@@ -73,6 +73,16 @@ export function AuthForm({ type, message }: AuthFormProps) {
             Password successfully updated! You can now log in.
           </motion.div>
         )}
+        {message === 'login-required-for-listing' && !error && (
+          <motion.div
+            initial={{ opacity: 0, height: 0, marginBottom: 0 }}
+            animate={{ opacity: 1, height: 'auto', marginBottom: 16 }}
+            exit={{ opacity: 0, height: 0, marginBottom: 0 }}
+            className="p-3 rounded-xl bg-yellow-500/10 border border-yellow-500/20 text-yellow-400 text-sm text-center"
+          >
+            Please login to post an item for sale.
+          </motion.div>
+        )}
       </AnimatePresence>
 
       <form onSubmit={handleSubmit} className="space-y-5">
