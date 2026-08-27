@@ -1,40 +1,63 @@
 import Link from 'next/link'
-import { ArrowRight, ShoppingBag } from 'lucide-react'
+import { createClient } from '@/lib/supabase/server'
 
-export default function Home() {
+export default async function Home() {
+  const supabase = await createClient()
+
+  // Fetch active products (available or in auction)
+  const { data: products } = await supabase
+    .from('products')
+    .select(`
+      *,
+      offers ( amount )
+    `)
+    .in('status', ['AVAILABLE', 'AUCTION'])
+    .order('created_at', { ascending: false })
+
   return (
-    <div className="min-h-screen bg-gray-950 text-white selection:bg-purple-500/30">
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-32 flex flex-col items-center justify-center text-center">
-        <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 mb-8 backdrop-blur-sm">
-          <ShoppingBag className="w-4 h-4 text-purple-400" />
-          <span className="text-sm font-medium text-gray-300">The next-gen marketplace</span>
+    <div className="min-h-screen bg-gray-950 text-white selection:bg-purple-500/30 pt-16">
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div className="flex justify-between items-end mb-8">
+          <div>
+            <h1 className="text-4xl font-extrabold tracking-tight">Marketplace</h1>
+            <p className="text-gray-400 mt-2">Discover unique items from our community.</p>
+          </div>
         </div>
-        
-        <h1 className="text-5xl md:text-7xl font-extrabold tracking-tight mb-8">
-          Discover. Buy. <br />
-          <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400">
-            Sell with ease.
-          </span>
-        </h1>
-        
-        <p className="max-w-2xl text-lg md:text-xl text-gray-400 mb-12">
-          Join our vibrant community to discover unique items or start selling your own. Experience a marketplace built for the modern web.
-        </p>
-        
-        <div className="flex flex-col sm:flex-row gap-4">
-          <Link
-            href="/register"
-            className="inline-flex items-center justify-center px-8 py-4 text-base font-semibold text-white bg-white/10 hover:bg-white/20 border border-white/20 rounded-full transition-all hover:scale-105 active:scale-95"
-          >
-            Start Selling
-            <ArrowRight className="ml-2 w-5 h-5" />
-          </Link>
-          <Link
-            href="/login"
-            className="inline-flex items-center justify-center px-8 py-4 text-base font-semibold text-gray-300 hover:text-white transition-colors"
-          >
-            Sign In
-          </Link>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+          {!products || products.length === 0 ? (
+            <div className="col-span-full py-20 text-center text-gray-500 border border-dashed border-white/10 rounded-2xl">
+              No items available right now. Be the first to list one!
+            </div>
+          ) : (
+            products.map((item: any) => {
+              const highestOffer = item.offers?.length > 0 ? Math.max(...item.offers.map((o: any) => o.amount)) : null
+              return (
+                <Link href={`/products/${item.id}`} key={item.id} className="block bg-white/5 border border-white/10 rounded-2xl overflow-hidden hover:border-purple-500/50 transition-colors group cursor-pointer">
+                  <div className="aspect-[4/3] bg-black/50 relative">
+                    {item.images?.[0] ? (
+                      <img src={item.images[0]} alt={item.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                    ) : (
+                      <div className="w-full h-full flex items-center justify-center text-gray-700">No Image</div>
+                    )}
+                    {item.is_auction && (
+                      <div className="absolute top-2 right-2 bg-purple-600 text-white text-xs font-bold px-3 py-1 rounded-full shadow-lg">AUCTION</div>
+                    )}
+                  </div>
+                  <div className="p-5">
+                    <h3 className="font-semibold text-white truncate text-lg">{item.title}</h3>
+                    <div className="mt-2 text-indigo-400 font-bold">
+                      {item.is_auction ? (
+                        highestOffer ? `Highest Offer: $${(highestOffer/100).toFixed(2)}` : `Starting: $${(item.price/100).toFixed(2)}`
+                      ) : (
+                        `$${(item.price/100).toFixed(2)}`
+                      )}
+                    </div>
+                  </div>
+                </Link>
+              )
+            })
+          )}
         </div>
       </main>
       

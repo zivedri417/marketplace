@@ -19,7 +19,8 @@ export default async function UserProfilePage({
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>
 }) {
   const { id } = await params
-  const { message } = await searchParams
+  const resolvedSearchParams = await searchParams
+  const { message, tab } = resolvedSearchParams
   
   const supabase = await createClient()
   const { data: { user: currentUser } } = await supabase.auth.getUser()
@@ -89,6 +90,7 @@ export default async function UserProfilePage({
       isOwner={isOwner}
       conversations={conversations || []}
       message={message as string | undefined}
+      initialTab={tab as string | undefined}
       currentUserId={currentUser?.id}
     />
   )

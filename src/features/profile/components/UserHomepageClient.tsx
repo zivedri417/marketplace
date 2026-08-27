@@ -6,6 +6,7 @@ import { Star, Edit3, MessageSquare, Package, CheckCircle, Send } from 'lucide-r
 import { updateBio } from '@/features/profile/actions'
 import { createClient } from '@/lib/supabase/client'
 import { logout } from '@/features/auth/actions'
+import Link from 'next/link'
 
 export function UserHomepageClient({ 
   profile, 
@@ -15,9 +16,12 @@ export function UserHomepageClient({
   isOwner, 
   conversations,
   message,
+  initialTab,
   currentUserId
 }: any) {
-  const [activeTab, setActiveTab] = useState<'listings' | 'reviews' | 'messages'>('listings')
+  const [activeTab, setActiveTab] = useState<'listings' | 'reviews' | 'messages'>(
+    (initialTab === 'messages' && isOwner) ? 'messages' : 'listings'
+  )
   const [isEditingBio, setIsEditingBio] = useState(false)
   const [bioError, setBioError] = useState('')
   const [activeConversationId, setActiveConversationId] = useState<string | null>(null)
@@ -167,7 +171,7 @@ export function UserHomepageClient({
                 listings.map((item: any) => {
                   const highestOffer = item.offers?.length > 0 ? Math.max(...item.offers.map((o: any) => o.amount)) : null
                   return (
-                    <div key={item.id} className="bg-white/5 border border-white/10 rounded-2xl overflow-hidden hover:border-purple-500/50 transition-colors group cursor-pointer">
+                    <Link href={`/products/${item.id}`} key={item.id} className="block bg-white/5 border border-white/10 rounded-2xl overflow-hidden hover:border-purple-500/50 transition-colors group cursor-pointer">
                       <div className="aspect-[4/3] bg-black/50 relative">
                         {item.images?.[0] && <img src={item.images[0]} alt={item.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />}
                         {item.is_auction && (
@@ -184,7 +188,7 @@ export function UserHomepageClient({
                           )}
                         </div>
                       </div>
-                    </div>
+                    </Link>
                   )
                 })
               )}
