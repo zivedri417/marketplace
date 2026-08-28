@@ -1,0 +1,1 @@
+an auction item never shold delete himself. when it reaches his time limit then only mark as ended and send the massege as its already been implementde. just dont delete the item mark it as ended both on the layout grid and the item page/ the seller will delete the item after selling. make sure once the auction ended the users cant make offers on the items

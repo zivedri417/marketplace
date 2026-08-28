@@ -41,15 +41,16 @@ export function ProductClient({ product, currentUser }: { product: any, currentU
 
   async function handleMakeOffer(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
+    const form = e.currentTarget
     setError('')
     setIsSubmitting(true)
-    const formData = new FormData(e.currentTarget)
+    const formData = new FormData(form)
     formData.append('product_id', product.id)
     const res = await makeOffer(formData)
     if (res?.error) {
       setError(res.error)
     } else {
-      e.currentTarget.reset()
+      form.reset()
     }
     setIsSubmitting(false)
   }
@@ -142,6 +143,15 @@ export function ProductClient({ product, currentUser }: { product: any, currentU
             <Clock className="w-5 h-5 text-gray-500" />
             <span>Listed on {new Date(product.created_at).toLocaleDateString()}</span>
           </div>
+          {product.is_auction && product.auction_deadline && (
+            <div className="flex items-center gap-3">
+              <Clock className="w-5 h-5 text-gray-500" />
+              <span>
+                {product.status === 'ENDED' ? 'Auction ended on ' : 'Auction deadline: '}
+                {new Date(product.auction_deadline).toLocaleString()}
+              </span>
+            </div>
+          )}
         </div>
 
         <div className="prose prose-invert">
@@ -201,7 +211,7 @@ export function ProductClient({ product, currentUser }: { product: any, currentU
                   </div>
                 </form>
               ) : (
-                <button 
+                <button
                   onClick={handleStartConversation}
                   disabled={isSubmitting}
                   className="w-full flex items-center justify-center gap-2 px-8 py-4 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 text-white rounded-2xl font-bold text-lg transition-all hover:scale-[1.02] active:scale-[0.98] disabled:opacity-50"
@@ -209,6 +219,15 @@ export function ProductClient({ product, currentUser }: { product: any, currentU
                   <MessageSquare className="w-6 h-6" /> Start Conversation
                 </button>
               )
+            ) : product.is_auction && product.status === 'ENDED' ? (
+              <div className="bg-white/5 border border-white/10 p-6 rounded-2xl">
+                <h3 className="font-bold text-lg">Auction Ended</h3>
+                <p className="text-sm text-gray-400 mt-1">
+                  {highestOffer
+                    ? `This auction has ended. The winning offer was $${(highestOffer / 100).toFixed(2)}.`
+                    : 'This auction has ended with no offers.'}
+                </p>
+              </div>
             ) : null
           )}
         </div>

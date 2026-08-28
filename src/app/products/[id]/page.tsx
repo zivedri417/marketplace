@@ -1,6 +1,7 @@
 import { notFound } from 'next/navigation'
 import { createClient } from '@/lib/supabase/server'
 import { ProductClient } from '@/features/products/components/ProductClient'
+import { createAdminClient, isExpiredAuction, resolveExpiredAuction } from '@/features/products/resolveAuction'
 
 export async function generateMetadata({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params
@@ -29,6 +30,20 @@ export default async function ProductPage({ params }: { params: Promise<{ id: st
 
   if (!product) {
     notFound()
+  }
+
+  // The auction cron may not have run yet (e.g. it never fires in local dev), so resolve an
+  // expired auction the moment anyone loads its page — same result, no missed deadline.
+  if (isExpiredAuction(product)) {
+    const supabaseAdmin = createAdminClient()
+    if (supabaseAdmin) {
+      try {
+        await resolveExpiredAuction(supabaseAdmin, { id: product.id, seller_id: product.seller_id, title: product.title })
+        product.status = 'ENDED'
+      } catch (err) {
+        console.error(`Failed to resolve expired auction ${product.id}:`, err)
+      }
+    }
   }
 
   // Get current user

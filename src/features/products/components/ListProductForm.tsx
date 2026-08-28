@@ -3,7 +3,7 @@
 import { useState, useCallback } from 'react'
 import { useDropzone } from 'react-dropzone'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Loader2, Image as ImageIcon, X, MapPin, DollarSign, Tag, FileText, Gavel, Calendar } from 'lucide-react'
+import { Loader2, Image as ImageIcon, Star, X, MapPin, DollarSign, Tag, FileText, Gavel, Calendar } from 'lucide-react'
 import imageCompression from 'browser-image-compression'
 import { createClient } from '@/lib/supabase/client'
 import { createProduct } from '@/features/products/actions'
@@ -13,80 +13,122 @@ interface Category {
   name: string
 }
 
+const MAX_ADDITIONAL_IMAGES = 9
+
+// Only the regular web image formats are supported — anything else (e.g. HEIC/HEIF photos
+// straight from an iPhone) can't be previewed or compressed, so it's rejected up front.
+const ACCEPTED_IMAGE_TYPES = {
+  'image/jpeg': ['.jpg', '.jpeg'],
+  'image/png': ['.png'],
+  'image/webp': ['.webp'],
+  'image/bmp': ['.bmp'],
+}
+const UNSUPPORTED_FORMAT_MESSAGE = 'Unsupported image format. Please upload a JPEG, PNG, WebP, or BMP image.'
+
 export function ListProductForm({ categories }: { categories: Category[] }) {
+  const [primaryImage, setPrimaryImage] = useState<File | null>(null)
   const [images, setImages] = useState<File[]>([])
   const [isAuction, setIsAuction] = useState(false)
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [error, setError] = useState<string | null>(null)
-  
+
   const supabase = createClient()
 
+  const { getRootProps: getPrimaryRootProps, getInputProps: getPrimaryInputProps, isDragActive: isPrimaryDragActive } = useDropzone({
+    accept: ACCEPTED_IMAGE_TYPES,
+    maxFiles: 1,
+    multiple: false,
+    onDropAccepted: (files) => {
+      setError(null)
+      setPrimaryImage(files[0])
+    },
+    onDropRejected: () => setError(UNSUPPORTED_FORMAT_MESSAGE),
+  })
+
   const onDrop = useCallback((acceptedFiles: File[]) => {
+    setError(null)
     setImages(prev => {
       const newImages = [...prev, ...acceptedFiles]
-      if (newImages.length > 10) return newImages.slice(0, 10)
+      if (newImages.length > MAX_ADDITIONAL_IMAGES) return newImages.slice(0, MAX_ADDITIONAL_IMAGES)
       return newImages
     })
   }, [])
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     onDrop,
-    accept: { 'image/*': [] },
-    maxFiles: 10,
+    accept: ACCEPTED_IMAGE_TYPES,
+    maxFiles: MAX_ADDITIONAL_IMAGES,
+    onDropRejected: () => setError(UNSUPPORTED_FORMAT_MESSAGE),
   })
+
+  const removePrimaryImage = () => setPrimaryImage(null)
 
   const removeImage = (index: number) => {
     setImages(prev => prev.filter((_, i) => i !== index))
   }
 
+  async function uploadImage(file: File, userId: string): Promise<string> {
+    // Compress
+    const compressedFile = await imageCompression(file, {
+      maxSizeMB: 1,
+      maxWidthOrHeight: 1920,
+      useWebWorker: true,
+    })
+
+    // Upload
+    const fileExt = file.name.split('.').pop()
+    const fileName = `${userId}/${Date.now()}-${Math.random().toString(36).substring(7)}.${fileExt}`
+
+    const { error: uploadError } = await supabase.storage
+      .from('product-images')
+      .upload(fileName, compressedFile)
+
+    if (uploadError) throw new Error(`Upload failed: ${uploadError.message}`)
+
+    const { data: { publicUrl } } = supabase.storage
+      .from('product-images')
+      .getPublicUrl(fileName)
+
+    return publicUrl
+  }
+
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
-    if (images.length === 0) {
-      setError('Please upload at least 1 image.')
+    if (!primaryImage) {
+      setError('Please upload a primary image.')
       return
     }
-    
+
     setIsSubmitting(true)
     setError(null)
-    
+
     const formData = new FormData(e.currentTarget)
     formData.append('is_auction', isAuction.toString())
 
+    const rawDeadline = formData.get('auction_deadline') as string | null
+    if (rawDeadline) {
+      // datetime-local has no offset, so the browser's Date constructor parses it
+      // as local time — convert that to a real UTC instant before it hits the DB.
+      formData.set('auction_deadline', new Date(rawDeadline).toISOString())
+    }
+
     try {
-      // 1. Compress and Upload Images
-      const uploadedUrls: string[] = []
       const { data: { user } } = await supabase.auth.getUser()
-      
+
       if (!user) throw new Error('Not authenticated')
 
+      // 1. Compress and upload the primary image first, so it always lands at
+      //    index 0 — the grid layout and item page both use images[0] as the cover.
+      const primaryUrl = await uploadImage(primaryImage, user.id)
+      const additionalUrls: string[] = []
       for (const file of images) {
-        // Compress
-        const compressedFile = await imageCompression(file, {
-          maxSizeMB: 1,
-          maxWidthOrHeight: 1920,
-          useWebWorker: true,
-        })
-        
-        // Upload
-        const fileExt = file.name.split('.').pop()
-        const fileName = `${user.id}/${Date.now()}-${Math.random().toString(36).substring(7)}.${fileExt}`
-        
-        const { error: uploadError, data } = await supabase.storage
-          .from('product-images')
-          .upload(fileName, compressedFile)
-          
-        if (uploadError) throw new Error(`Upload failed: ${uploadError.message}`)
-        
-        const { data: { publicUrl } } = supabase.storage
-          .from('product-images')
-          .getPublicUrl(fileName)
-          
-        uploadedUrls.push(publicUrl)
+        additionalUrls.push(await uploadImage(file, user.id))
       }
+      const uploadedUrls = [primaryUrl, ...additionalUrls]
 
       // 2. Submit Product
       const res = await createProduct(formData, uploadedUrls)
-      
+
       if (res?.error) {
         setError(res.error)
       }
@@ -124,11 +166,49 @@ export function ListProductForm({ categories }: { categories: Category[] }) {
         )}
       </AnimatePresence>
 
+      {/* Primary Image Section */}
+      <div className="space-y-4">
+        <label className="text-sm font-medium text-gray-300">Primary Image <span className="text-purple-400">*Required</span></label>
+        <p className="text-xs text-gray-500 -mt-2">This photo represents your item in the browse grid and is shown first on the item page.</p>
+
+        {primaryImage ? (
+          <div className="relative group w-40 h-40 rounded-2xl overflow-hidden border-2 border-purple-500/50">
+            <img
+              src={URL.createObjectURL(primaryImage)}
+              alt="primary preview"
+              className="w-full h-full object-cover"
+            />
+            <div className="absolute top-2 left-2 bg-purple-600 text-white text-xs font-bold px-2 py-1 rounded-full flex items-center gap-1 shadow-lg">
+              <Star className="w-3 h-3 fill-white" /> Primary
+            </div>
+            <button
+              type="button"
+              onClick={removePrimaryImage}
+              className="absolute inset-0 bg-black/50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity"
+            >
+              <X className="w-6 h-6 text-white" />
+            </button>
+          </div>
+        ) : (
+          <div
+            {...getPrimaryRootProps()}
+            className={`border-2 border-dashed rounded-2xl p-8 text-center cursor-pointer transition-colors ${
+              isPrimaryDragActive ? 'border-purple-500 bg-purple-500/10' : 'border-white/20 bg-white/5 hover:bg-white/10'
+            }`}
+          >
+            <input {...getPrimaryInputProps()} />
+            <Star className="mx-auto h-10 w-10 text-gray-400 mb-4" />
+            <p className="text-sm text-gray-300">Drag & drop your primary image here, or click to select</p>
+            <p className="text-xs text-gray-500 mt-2">JPEG, PNG, WebP, or BMP only.</p>
+          </div>
+        )}
+      </div>
+
       {/* Images Section */}
       <div className="space-y-4">
-        <label className="text-sm font-medium text-gray-300">Images (Max 10)</label>
-        <div 
-          {...getRootProps()} 
+        <label className="text-sm font-medium text-gray-300">Additional Images (Max {MAX_ADDITIONAL_IMAGES}, optional)</label>
+        <div
+          {...getRootProps()}
           className={`border-2 border-dashed rounded-2xl p-8 text-center cursor-pointer transition-colors ${
             isDragActive ? 'border-purple-500 bg-purple-500/10' : 'border-white/20 bg-white/5 hover:bg-white/10'
           }`}
@@ -136,7 +216,6 @@ export function ListProductForm({ categories }: { categories: Category[] }) {
           <input {...getInputProps()} />
           <ImageIcon className="mx-auto h-12 w-12 text-gray-400 mb-4" />
           <p className="text-sm text-gray-300">Drag & drop some images here, or click to select</p>
-          <p className="text-xs text-gray-500 mt-2">At least 1 photo required.</p>
         </div>
 
         {images.length > 0 && (

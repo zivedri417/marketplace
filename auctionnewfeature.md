@@ -1,0 +1,1 @@
+Not done / needs your input: no email provider is wired in (still a console.log placeholder, same as before) — if you want real emails sent, tell me which provider (Resend, SendGrid, etc.) and I'll wire it up along with the required env var.

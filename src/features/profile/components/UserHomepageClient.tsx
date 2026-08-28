@@ -174,7 +174,9 @@ export function UserHomepageClient({
                     <Link href={`/products/${item.id}`} key={item.id} className="block bg-white/5 border border-white/10 rounded-2xl overflow-hidden hover:border-purple-500/50 transition-colors group cursor-pointer">
                       <div className="aspect-[4/3] bg-black/50 relative">
                         {item.images?.[0] && <img src={item.images[0]} alt={item.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />}
-                        {item.is_auction && (
+                        {item.status === 'ENDED' ? (
+                          <div className="absolute top-2 right-2 bg-yellow-600 text-white text-xs font-bold px-3 py-1 rounded-full shadow-lg">ENDED</div>
+                        ) : item.is_auction && (
                           <div className="absolute top-2 right-2 bg-purple-600 text-white text-xs font-bold px-3 py-1 rounded-full shadow-lg">AUCTION</div>
                         )}
                       </div>

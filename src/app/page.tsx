@@ -4,14 +4,15 @@ import { createClient } from '@/lib/supabase/server'
 export default async function Home() {
   const supabase = await createClient()
 
-  // Fetch active products (available or in auction)
+  // Fetch active products (available, in auction, or an ended auction still awaiting
+  // seller cleanup — an ended auction is never deleted automatically, just marked ENDED)
   const { data: products } = await supabase
     .from('products')
     .select(`
       *,
       offers ( amount )
     `)
-    .in('status', ['AVAILABLE', 'AUCTION'])
+    .in('status', ['AVAILABLE', 'AUCTION', 'ENDED'])
     .order('created_at', { ascending: false })
 
   return (
@@ -40,7 +41,9 @@ export default async function Home() {
                     ) : (
                       <div className="w-full h-full flex items-center justify-center text-gray-700">No Image</div>
                     )}
-                    {item.is_auction && (
+                    {item.status === 'ENDED' ? (
+                      <div className="absolute top-2 right-2 bg-yellow-600 text-white text-xs font-bold px-3 py-1 rounded-full shadow-lg">ENDED</div>
+                    ) : item.is_auction && (
                       <div className="absolute top-2 right-2 bg-purple-600 text-white text-xs font-bold px-3 py-1 rounded-full shadow-lg">AUCTION</div>
                     )}
                   </div>

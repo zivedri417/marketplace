@@ -36,7 +36,8 @@ export default async function UserProfilePage({
     notFound()
   }
 
-  // Fetch Listings (Products)
+  // Fetch Listings (Products) — an ended auction is never deleted automatically, just
+  // marked ENDED, so it stays listed here until the seller deletes it themselves.
   const { data: listings } = await supabase
     .from('products')
     .select(`
@@ -44,7 +45,7 @@ export default async function UserProfilePage({
       offers ( amount )
     `)
     .eq('seller_id', id)
-    .in('status', ['AVAILABLE', 'AUCTION'])
+    .in('status', ['AVAILABLE', 'AUCTION', 'ENDED'])
     .order('created_at', { ascending: false })
 
   // Fetch Reviews
