@@ -4,6 +4,7 @@ import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Loader2, Mail, Lock, User, ArrowRight } from 'lucide-react'
 import { login, signup } from '@/features/auth/actions'
+import { inputClass, pillButtonPrimary } from '@/lib/ui'
 
 interface AuthFormProps {
   type: 'login' | 'register'
@@ -39,15 +40,13 @@ export function AuthForm({ type, message }: AuthFormProps) {
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, ease: 'easeOut' }}
-      className="w-full max-w-md p-8 rounded-3xl bg-white/10 backdrop-blur-xl border border-white/20 shadow-[0_8px_32px_0_rgba(0,0,0,0.3)] relative overflow-hidden"
+      className="w-full max-w-md p-8 rounded-[24px] bg-white/5 backdrop-blur-xl border border-white/10 shadow-[0_8px_32px_0_rgba(0,0,0,0.3)] relative overflow-hidden"
     >
-      <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500" />
-      
       <div className="mb-8 text-center">
         <h2 className="text-3xl font-bold tracking-tight text-white mb-2">
           {isLogin ? 'Welcome back' : 'Create an account'}
         </h2>
-        <p className="text-gray-400 text-sm">
+        <p className="text-white/50 text-sm">
           {isLogin ? 'Enter your details to sign in to your account' : 'Enter your details below to create your account'}
         </p>
       </div>
@@ -103,7 +102,7 @@ export function AuthForm({ type, message }: AuthFormProps) {
                   name="fullName"
                   type="text"
                   required={!isLogin}
-                  className="block w-full pl-10 pr-3 py-3 border border-white/10 rounded-xl bg-white/5 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-purple-500/50 focus:border-transparent transition-all"
+                  className={`${inputClass} pl-10 pr-3 py-3 text-sm`}
                   placeholder="John Doe"
                 />
               </div>
@@ -155,7 +154,7 @@ export function AuthForm({ type, message }: AuthFormProps) {
           whileTap={{ scale: 0.98 }}
           type="submit"
           disabled={isPending}
-          className="w-full flex items-center justify-center py-3 px-4 border border-transparent rounded-xl shadow-sm text-sm font-medium text-white bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500 focus:ring-offset-gray-900 transition-all disabled:opacity-70 disabled:cursor-not-allowed group relative overflow-hidden"
+          className={`w-full py-3.5 px-4 text-sm group relative overflow-hidden ${pillButtonPrimary}`}
         >
           <div className="absolute inset-0 w-full h-full bg-white/20 blur-md opacity-0 group-hover:opacity-100 transition-opacity" />
           <span className="relative flex items-center">

@@ -3,7 +3,7 @@ import { CheckCircle2, ArrowRight } from 'lucide-react'
 
 export default function VerifiedPage() {
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-950 relative overflow-hidden">
+    <div className="min-h-screen flex items-center justify-center bg-[#07070b] relative overflow-hidden">
       <div className="relative z-10 w-full max-w-md p-8 rounded-3xl bg-white/10 backdrop-blur-xl border border-white/20 text-center">
         <div className="mx-auto w-16 h-16 bg-green-500/20 rounded-full flex items-center justify-center mb-6">
           <CheckCircle2 className="w-8 h-8 text-green-400" />

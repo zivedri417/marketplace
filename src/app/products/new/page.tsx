@@ -22,7 +22,7 @@ export default async function NewProductPage() {
     .order('name')
 
   return (
-    <div className="min-h-screen bg-gray-950 py-24 px-4 relative overflow-hidden">
+    <div className="min-h-screen bg-[#07070b] py-24 px-4 relative overflow-hidden">
       {/* Abstract Backgrounds */}
       <div className="absolute top-0 right-0 w-[40%] h-[40%] rounded-full bg-indigo-600/10 blur-[120px] pointer-events-none" />
       <div className="absolute bottom-0 left-0 w-[40%] h-[40%] rounded-full bg-purple-600/10 blur-[120px] pointer-events-none" />

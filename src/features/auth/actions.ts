@@ -59,9 +59,12 @@ export async function logout() {
   const { error } = await supabase.auth.signOut()
 
   if (error) {
-    return { error: error.message }
+    // Used directly as a <form action={logout}> — that requires a void-returning
+    // action, so there's no `{ error }` return value to surface to the caller here.
+    console.error('Logout failed:', error.message)
+    return
   }
-  
+
   revalidatePath('/', 'layout')
   redirect('/login')
 }

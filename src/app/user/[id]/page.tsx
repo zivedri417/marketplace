@@ -42,7 +42,8 @@ export default async function UserProfilePage({
     .from('products')
     .select(`
       *,
-      offers ( amount )
+      offers ( amount ),
+      category:category_id ( name )
     `)
     .eq('seller_id', id)
     .in('status', ['AVAILABLE', 'AUCTION', 'ENDED'])
