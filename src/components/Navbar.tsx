@@ -1,8 +1,9 @@
 import Link from 'next/link'
-import { PlusCircle, LogIn, Search } from 'lucide-react'
+import { PlusCircle, LogIn } from 'lucide-react'
 import { createClient } from '@/lib/supabase/server'
 import { pillButtonPrimary } from '@/lib/ui'
 import { CategoriesMenu } from '@/components/CategoriesMenu'
+import { SearchBar } from '@/components/SearchBar'
 
 export async function Navbar() {
   const supabase = await createClient()
@@ -41,10 +42,7 @@ export async function Navbar() {
 
           {/* Search + actions */}
           <div className="flex items-center gap-3">
-            <div className="hidden lg:flex items-center gap-2 w-64 px-3.5 py-2.5 rounded-full border border-white/10 bg-white/5 text-sm text-white/40">
-              <Search className="h-3.5 w-3.5" strokeWidth={2.5} />
-              Search items
-            </div>
+            <SearchBar />
 
             <Link
               href="/products/new"

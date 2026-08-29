@@ -1,1 +1,1 @@
-in the auction feature in the top right bar in the explanation page in the wrap up the sale cube change the explanation to be more minimum i dont want anyone to know the technicall detailes.. just write that once the seller sold the item item is not availabe ...  something like that
+the top left search bar isnt working. can you make it work for searching users, products by simularetry? 
