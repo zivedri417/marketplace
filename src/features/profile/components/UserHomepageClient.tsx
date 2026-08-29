@@ -1,13 +1,17 @@
 'use client'
 
 import { useState } from 'react'
+import { useRouter } from 'next/navigation'
+import Link from 'next/link'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Star, Edit3, MessageSquare, Package, CheckCircle, Send } from 'lucide-react'
-import { updateBio } from '@/features/profile/actions'
+import { updateBio, submitReview } from '@/features/profile/actions'
 import { createClient } from '@/lib/supabase/client'
 import { logout } from '@/features/auth/actions'
 import { ProductCard } from '@/features/products/components/ProductCard'
 import { cardClass, monoLabelClass, pillButtonPrimary, pillButtonSecondary, inputClass } from '@/lib/ui'
+
+const MAX_REVIEW_COMMENT_LENGTH = 300
 
 export function UserHomepageClient({
   profile,
@@ -31,7 +35,15 @@ export function UserHomepageClient({
   // Computed once on mount (not read directly during render) to stay a pure render.
   const [now] = useState(() => Date.now())
 
+  const [showReviewForm, setShowReviewForm] = useState(false)
+  const [reviewRating, setReviewRating] = useState(0)
+  const [reviewHoverRating, setReviewHoverRating] = useState(0)
+  const [reviewComment, setReviewComment] = useState('')
+  const [reviewError, setReviewError] = useState('')
+  const [isSubmittingReview, setIsSubmittingReview] = useState(false)
+
   const supabase = createClient()
+  const router = useRouter()
 
   async function handleBioSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
@@ -42,6 +54,31 @@ export function UserHomepageClient({
       setBioError(res.error)
     } else {
       setIsEditingBio(false)
+    }
+  }
+
+  async function handleReviewSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault()
+    setReviewError('')
+    if (reviewRating < 1 || reviewRating > 5) {
+      setReviewError('Please select a star rating.')
+      return
+    }
+    setIsSubmittingReview(true)
+    const formData = new FormData()
+    formData.set('seller_id', profile.id)
+    formData.set('rating', String(reviewRating))
+    formData.set('comment', reviewComment)
+    const res = await submitReview(formData)
+    if (res?.error) {
+      setReviewError(res.error)
+      setIsSubmittingReview(false)
+    } else {
+      setShowReviewForm(false)
+      setReviewRating(0)
+      setReviewComment('')
+      setIsSubmittingReview(false)
+      router.refresh() // re-fetch so the new review shows up in the list below
     }
   }
 
@@ -203,6 +240,59 @@ export function UserHomepageClient({
 
           {activeTab === 'reviews' && (
             <motion.div key="reviews" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="grid grid-cols-1 md:grid-cols-2 gap-[18px]">
+              {!isOwner && (
+                <div className={`${cardClass} p-[22px] md:col-span-2`}>
+                  {!currentUserId ? (
+                    <p className="text-sm text-white/62">
+                      <Link href="/login" className="text-indigo-300 hover:text-indigo-200 font-semibold">Log in</Link> to leave a review for {profile.full_name || 'this user'}.
+                    </p>
+                  ) : showReviewForm ? (
+                    <form onSubmit={handleReviewSubmit} className="space-y-4">
+                      <div>
+                        <div className={monoLabelClass}>Your rating</div>
+                        <div className="flex gap-1 mt-2">
+                          {[1, 2, 3, 4, 5].map(n => (
+                            <button
+                              key={n}
+                              type="button"
+                              onClick={() => setReviewRating(n)}
+                              onMouseEnter={() => setReviewHoverRating(n)}
+                              onMouseLeave={() => setReviewHoverRating(0)}
+                              className="text-2xl leading-none transition-transform hover:scale-110"
+                              aria-label={`${n} star${n === 1 ? '' : 's'}`}
+                            >
+                              <span className={(reviewHoverRating || reviewRating) >= n ? 'text-yellow-300' : 'text-white/20'}>★</span>
+                            </button>
+                          ))}
+                        </div>
+                      </div>
+                      <div>
+                        <div className={monoLabelClass}>Review (optional)</div>
+                        <textarea
+                          value={reviewComment}
+                          onChange={e => setReviewComment(e.target.value.slice(0, MAX_REVIEW_COMMENT_LENGTH))}
+                          maxLength={MAX_REVIEW_COMMENT_LENGTH}
+                          rows={3}
+                          placeholder="Share your experience…"
+                          className={`${inputClass} p-3 text-sm mt-2`}
+                        />
+                        <div className="text-right text-[11px] text-white/40 mt-1">{reviewComment.length}/{MAX_REVIEW_COMMENT_LENGTH}</div>
+                      </div>
+                      {reviewError && <p className="text-red-400 text-sm">{reviewError}</p>}
+                      <div className="flex gap-2">
+                        <button type="submit" disabled={isSubmittingReview} className={`${pillButtonPrimary} px-5 py-2.5 text-sm`}>
+                          {isSubmittingReview ? 'Submitting…' : 'Submit Review'}
+                        </button>
+                        <button type="button" onClick={() => setShowReviewForm(false)} className={`${pillButtonSecondary} px-5 py-2.5 text-sm`}>Cancel</button>
+                      </div>
+                    </form>
+                  ) : (
+                    <button onClick={() => setShowReviewForm(true)} className={`${pillButtonPrimary} px-5 py-2.5 text-sm`}>
+                      Write a Review
+                    </button>
+                  )}
+                </div>
+              )}
               {reviews.length === 0 ? (
                 <div className="col-span-full text-center py-16 text-white/45">No reviews yet.</div>
               ) : (

@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server'
 import { createAdminClient, resolveExpiredAuction } from '@/features/products/resolveAuction'
+import { deleteExpiredSoldProducts } from '@/features/products/cleanupSoldProducts'
 
 export async function GET(request: Request) {
   // Security check for Vercel Cron
@@ -38,5 +39,13 @@ export async function GET(request: Request) {
     }
   }
 
-  return NextResponse.json({ success: true, processed: processedCount })
+  // 2. Also sweep out any listing that's been marked SOLD for over a month.
+  let deletedSoldCount = 0
+  try {
+    deletedSoldCount = await deleteExpiredSoldProducts(supabaseAdmin)
+  } catch (err) {
+    console.error('Error cleaning up expired sold products:', err)
+  }
+
+  return NextResponse.json({ success: true, processed: processedCount, deletedSold: deletedSoldCount })
 }

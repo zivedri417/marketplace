@@ -1,10 +1,11 @@
 'use client'
 
 import { useEffect, useState } from 'react'
+import { useRouter } from 'next/navigation'
 import { motion, AnimatePresence } from 'framer-motion'
-import { ChevronLeft, ChevronRight, MessageSquare, Trash2, MapPin, Clock, AlertCircle } from 'lucide-react'
+import { ChevronLeft, ChevronRight, MessageSquare, CheckCircle2, MapPin, Clock, AlertCircle } from 'lucide-react'
 import Link from 'next/link'
-import { deleteProduct, startConversation, makeOffer } from '@/features/products/actions'
+import { markProductSold, startConversation, makeOffer } from '@/features/products/actions'
 import { cardClass, monoLabelClass, pillButtonPrimary, pillButtonSecondary, pillButtonDanger, priceGradientClass, statusPill, formatTimeLeft, ENDING_SOON_MS } from '@/lib/ui'
 
 export function ProductClient({ product, currentUser, sellerRating, sellerReviewCount }: { product: any, currentUser: any, sellerRating: number, sellerReviewCount: number }) {
@@ -12,6 +13,7 @@ export function ProductClient({ product, currentUser, sellerRating, sellerReview
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [error, setError] = useState('')
   const [now, setNow] = useState(() => Date.now())
+  const router = useRouter()
 
   const isOwner = currentUser?.id === product.seller_id
   const images = product.images || []
@@ -20,7 +22,10 @@ export function ProductClient({ product, currentUser, sellerRating, sellerReview
   const highestOffer = offers.length > 0 ? offers[0].amount : null
   const minRequiredOffer = highestOffer ? highestOffer + 1 : (product.minimum_price || product.price)
   const isAuctionLive = product.is_auction && product.status === 'AUCTION'
+  // Reaching the deadline only ever marks an auction ENDED — SOLD is a separate, later
+  // status the seller sets once themselves (see handleMarkSold), never inferred here.
   const isEnded = product.status === 'ENDED'
+  const isSold = product.status === 'SOLD'
   const winner = isEnded && product.is_auction ? offers[0] : null
 
   const msLeft = product.auction_deadline ? new Date(product.auction_deadline).getTime() - now : null
@@ -36,13 +41,16 @@ export function ProductClient({ product, currentUser, sellerRating, sellerReview
   const nextImage = () => setCurrentImageIndex((prev) => (prev + 1) % images.length)
   const prevImage = () => setCurrentImageIndex((prev) => (prev - 1 + images.length) % images.length)
 
-  async function handleDelete() {
-    if (!confirm('Are you sure you want to delete this listing?')) return
+  async function handleMarkSold() {
+    if (!confirm('Mark this listing as sold? It will stop being offered or bid on, and will be removed automatically after 30 days.')) return
     setIsSubmitting(true)
-    const res = await deleteProduct(product.id)
+    const res = await markProductSold(product.id)
     if (res?.error) {
       setError(res.error)
       setIsSubmitting(false)
+    } else {
+      setIsSubmitting(false)
+      router.refresh()
     }
   }
 
@@ -92,9 +100,11 @@ export function ProductClient({ product, currentUser, sellerRating, sellerReview
             )}
           </AnimatePresence>
 
-          {product.is_auction && (
-            <span className={`absolute top-4 left-4 ${statusPill(isEnded ? (highestOffer ? 'sold' : 'ended') : (isEndingSoon ? 'ending-soon' : 'auction'))}`}>
-              {isEnded ? (highestOffer ? 'SOLD' : 'ENDED') : (isEndingSoon ? 'ENDING SOON' : 'AUCTION')}
+          {isSold ? (
+            <span className={`absolute top-4 left-4 ${statusPill('sold')}`}>SOLD</span>
+          ) : product.is_auction && (
+            <span className={`absolute top-4 left-4 ${statusPill(isEnded ? 'ended' : (isEndingSoon ? 'ending-soon' : 'auction'))}`}>
+              {isEnded ? 'ENDED' : (isEndingSoon ? 'ENDING SOON' : 'AUCTION')}
             </span>
           )}
 
@@ -137,12 +147,13 @@ export function ProductClient({ product, currentUser, sellerRating, sellerReview
             <span className="px-3 py-[5px] rounded-full text-[11px] font-semibold tracking-wide border border-white/15 bg-white/5 text-white/75">
               {product.category?.name?.toUpperCase() || 'UNCATEGORIZED'}
             </span>
-            {product.is_auction && (
-              <span className={statusPill(isEnded ? (highestOffer ? 'sold' : 'ended') : (isEndingSoon ? 'ending-soon' : 'auction'))}>
-                {isEnded ? (highestOffer ? 'SOLD' : 'ENDED') : (isEndingSoon ? 'ENDING SOON' : 'AUCTION')}
+            {isSold ? (
+              <span className={statusPill('sold')}>SOLD</span>
+            ) : product.is_auction ? (
+              <span className={statusPill(isEnded ? 'ended' : (isEndingSoon ? 'ending-soon' : 'auction'))}>
+                {isEnded ? 'ENDED' : (isEndingSoon ? 'ENDING SOON' : 'AUCTION')}
               </span>
-            )}
-            {!product.is_auction && product.status === 'AVAILABLE' && (
+            ) : product.status === 'AVAILABLE' && (
               <span className={statusPill('available')}>AVAILABLE</span>
             )}
           </div>
@@ -278,15 +289,19 @@ export function ProductClient({ product, currentUser, sellerRating, sellerReview
             <div className={`${cardClass} p-6 flex items-center justify-between gap-4 flex-wrap`}>
               <div>
                 <h3 className="font-bold text-lg">Manage Listing</h3>
-                <p className="text-sm text-white/55 mt-1">You own this item.</p>
+                <p className="text-sm text-white/55 mt-1">
+                  {isSold ? "Sold — this listing will be removed automatically after 30 days." : 'You own this item.'}
+                </p>
               </div>
-              <button
-                onClick={handleDelete}
-                disabled={isSubmitting}
-                className={`${pillButtonDanger} gap-2 px-6 py-3 text-sm`}
-              >
-                <Trash2 className="w-4 h-4" /> Delete listing
-              </button>
+              {!isSold && (
+                <button
+                  onClick={handleMarkSold}
+                  disabled={isSubmitting}
+                  className={`${pillButtonDanger} gap-2 px-6 py-3 text-sm`}
+                >
+                  <CheckCircle2 className="w-4 h-4" /> Mark as sold
+                </button>
+              )}
             </div>
           ) : (
             !product.is_auction && (product.status === 'AVAILABLE') ? (
@@ -297,6 +312,11 @@ export function ProductClient({ product, currentUser, sellerRating, sellerReview
               >
                 <MessageSquare className="w-5 h-5" /> Start Conversation
               </button>
+            ) : isSold ? (
+              <div className={`${cardClass} p-6`}>
+                <h3 className="font-bold text-lg">Item Sold</h3>
+                <p className="text-sm text-white/55 mt-1">This item has already been sold and is no longer available.</p>
+              </div>
             ) : isEnded ? (
               <div className={`${cardClass} p-6 ${winner ? 'border-emerald-400/25 bg-gradient-to-br from-emerald-600/[0.12] to-indigo-600/[0.06]' : ''}`}>
                 <h3 className="font-bold text-lg">Auction Ended</h3>

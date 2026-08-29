@@ -69,20 +69,29 @@ export async function createProduct(formData: FormData, imageUrls: string[]) {
   redirect(`/user/${user.id}?message=item-listed`)
 }
 
-export async function deleteProduct(productId: string) {
+export async function markProductSold(productId: string) {
   const supabase = await createClient()
   const { data: { user } } = await supabase.auth.getUser()
   if (!user) return { error: 'Not authenticated' }
 
   // Check ownership
-  const { data: product } = await supabase.from('products').select('seller_id').eq('id', productId).single()
+  const { data: product } = await supabase.from('products').select('seller_id, status').eq('id', productId).single()
   if (product?.seller_id !== user.id) return { error: 'Not authorized' }
+  if (product.status === 'SOLD') return { error: 'This item is already marked as sold.' }
 
-  const { error } = await supabase.from('products').delete().eq('id', productId)
+  // Marking sold never deletes the listing — it just stops it being offered/bid on.
+  // The listing is only ever removed automatically, a month after this point.
+  const { error } = await supabase
+    .from('products')
+    .update({ status: 'SOLD', sold_at: new Date().toISOString() })
+    .eq('id', productId)
+
   if (error) return { error: error.message }
 
   revalidatePath('/')
-  redirect(`/user/${user.id}`)
+  revalidatePath(`/products/${productId}`)
+  revalidatePath(`/user/${user.id}`)
+  return { success: true }
 }
 
 export async function startConversation(productId: string, sellerId: string) {

@@ -1,6 +1,8 @@
 import { notFound } from 'next/navigation'
 import { createClient } from '@/lib/supabase/server'
 import { UserHomepageClient } from '@/features/profile/components/UserHomepageClient'
+import { createAdminClient } from '@/features/products/resolveAuction'
+import { deleteExpiredSoldProducts } from '@/features/products/cleanupSoldProducts'
 
 export async function generateMetadata({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params
@@ -36,8 +38,22 @@ export default async function UserProfilePage({
     notFound()
   }
 
-  // Fetch Listings (Products) — an ended auction is never deleted automatically, just
-  // marked ENDED, so it stays listed here until the seller deletes it themselves.
+  // A SOLD listing is only ever removed automatically, a month after being marked sold
+  // (see markProductSold / cleanupSoldProducts.ts). The cron route does this hourly in
+  // production, but that schedule doesn't run in local dev, so sweep here too — same
+  // fallback reasoning as the auction lazy-resolution on the product page.
+  const supabaseAdmin = createAdminClient()
+  if (supabaseAdmin) {
+    try {
+      await deleteExpiredSoldProducts(supabaseAdmin)
+    } catch (err) {
+      console.error('Error cleaning up expired sold products:', err)
+    }
+  }
+
+  // Fetch Listings (Products) — an ended auction, or a sold item still within its
+  // retention window, is never deleted automatically, just marked ENDED/SOLD, so it
+  // stays listed here until it's the seller's turn to act (or the month is up).
   const { data: listings } = await supabase
     .from('products')
     .select(`
@@ -46,7 +62,7 @@ export default async function UserProfilePage({
       category:category_id ( name )
     `)
     .eq('seller_id', id)
-    .in('status', ['AVAILABLE', 'AUCTION', 'ENDED'])
+    .in('status', ['AVAILABLE', 'AUCTION', 'ENDED', 'SOLD'])
     .order('created_at', { ascending: false })
 
   // Fetch Reviews

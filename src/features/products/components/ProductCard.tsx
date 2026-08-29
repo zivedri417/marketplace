@@ -6,13 +6,16 @@ import { cardClass, cardHoverClass, monoLabelClass, priceGradientClass, statusPi
 export function ProductCard({ item, now }: { item: any, now: number }) {
   const highestOffer = item.offers?.length > 0 ? Math.max(...item.offers.map((o: any) => o.amount)) : null
   const offerCount = item.offers?.length || 0
+  // Reaching the deadline only ever marks an auction ENDED — SOLD is a separate, later
+  // status the seller sets once themselves, never inferred from having a winning offer.
   const isEnded = item.status === 'ENDED'
+  const isSold = item.status === 'SOLD'
   const isAuction = item.is_auction
 
   const msLeft = item.auction_deadline ? new Date(item.auction_deadline).getTime() - now : null
   const isEndingSoon = isAuction && !isEnded && msLeft !== null && msLeft > 0 && msLeft <= ENDING_SOON_MS
 
-  const priceLabel = isAuction ? (highestOffer ? 'Highest offer' : 'Starting at') : (isEnded ? 'Sold for' : 'Buy now')
+  const priceLabel = isAuction ? (highestOffer ? 'Highest offer' : 'Starting at') : (isSold ? 'Sold for' : 'Buy now')
   const priceCents = isAuction ? (highestOffer ?? item.price) : item.price
   const meta = isAuction ? (offerCount > 0 ? `${offerCount} offer${offerCount === 1 ? '' : 's'}` : 'No offers yet') : item.location
 
@@ -28,17 +31,17 @@ export function ProductCard({ item, now }: { item: any, now: number }) {
           <div className="w-full h-full flex items-center justify-center text-white/30 text-sm">No Image</div>
         )}
 
-        {isEnded ? (
-          <span className={`absolute top-3 left-3 ${statusPill(highestOffer ? 'sold' : 'ended')}`}>
-            {highestOffer ? 'SOLD' : 'ENDED'}
-          </span>
+        {isSold ? (
+          <span className={`absolute top-3 left-3 ${statusPill('sold')}`}>SOLD</span>
+        ) : isEnded ? (
+          <span className={`absolute top-3 left-3 ${statusPill('ended')}`}>ENDED</span>
         ) : isAuction && (
           <span className={`absolute top-3 left-3 ${statusPill(isEndingSoon ? 'ending-soon' : 'auction')}`}>
             {isEndingSoon ? 'ENDING SOON' : 'AUCTION'}
           </span>
         )}
 
-        {isAuction && !isEnded && item.auction_deadline && (
+        {isAuction && !isEnded && !isSold && item.auction_deadline && (
           <div className="absolute bottom-3 left-3 px-2.5 py-1 rounded-full font-mono text-[11px] bg-black/70 border border-white/10 backdrop-blur-sm text-yellow-300">
             {formatTimeLeft(item.auction_deadline, now)}
           </div>
