@@ -6,7 +6,7 @@ import { PackageOpen } from 'lucide-react'
 import { ProductCard } from './ProductCard'
 import { pillButtonPrimary } from '@/lib/ui'
 
-type Filter = 'all' | 'auctions' | 'buy-now' | 'newest'
+export type Filter = 'all' | 'auctions' | 'buy-now' | 'newest'
 
 const FILTERS: { id: Filter; label: string }[] = [
   { id: 'all', label: 'All' },
@@ -15,8 +15,12 @@ const FILTERS: { id: Filter; label: string }[] = [
   { id: 'newest', label: 'Newest' },
 ]
 
-export function ProductGrid({ products }: { products: any[] }) {
-  const [filter, setFilter] = useState<Filter>('all')
+// Lets a link (e.g. the Auctions explainer page's "Browse live auctions" CTA) deep-link
+// straight into a pre-selected filter via ?filter=auctions, instead of always opening on "All".
+export function ProductGrid({ products, initialFilter }: { products: any[], initialFilter?: Filter }) {
+  const [filter, setFilter] = useState<Filter>(
+    initialFilter && FILTERS.some(f => f.id === initialFilter) ? initialFilter : 'all'
+  )
   // Computed once on mount (not read directly during render) to stay a pure render.
   const [now] = useState(() => Date.now())
 

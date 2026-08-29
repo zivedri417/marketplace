@@ -1,7 +1,16 @@
 import { createClient } from '@/lib/supabase/server'
-import { ProductGrid } from '@/features/products/components/ProductGrid'
+import { ProductGrid, type Filter } from '@/features/products/components/ProductGrid'
 
-export default async function Home() {
+const KNOWN_FILTERS: Filter[] = ['all', 'auctions', 'buy-now', 'newest']
+
+export default async function Home({
+  searchParams
+}: {
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>
+}) {
+  const { filter: rawFilter } = await searchParams
+  const initialFilter = KNOWN_FILTERS.find(f => f === rawFilter)
+
   const supabase = await createClient()
 
   // Fetch active products (available, in auction, or an ended auction still awaiting
@@ -26,7 +35,7 @@ export default async function Home() {
           </div>
         </div>
 
-        <ProductGrid products={products || []} />
+        <ProductGrid products={products || []} initialFilter={initialFilter} />
       </main>
 
       {/* Abstract Background */}

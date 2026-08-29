@@ -2,6 +2,7 @@ import Link from 'next/link'
 import { PlusCircle, LogIn, Search } from 'lucide-react'
 import { createClient } from '@/lib/supabase/server'
 import { pillButtonPrimary } from '@/lib/ui'
+import { CategoriesMenu } from '@/components/CategoriesMenu'
 
 export async function Navbar() {
   const supabase = await createClient()
@@ -17,6 +18,11 @@ export async function Navbar() {
     initial = profile?.full_name?.charAt(0)?.toUpperCase() || 'U'
   }
 
+  const { data: categories } = await supabase
+    .from('categories')
+    .select('id, name, slug')
+    .order('name')
+
   return (
     <nav className="sticky top-0 z-50 w-full border-b border-white/[0.07] bg-[rgba(10,10,16,0.6)] backdrop-blur-2xl">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -28,9 +34,8 @@ export async function Navbar() {
               Marketplace
             </Link>
             <div className="hidden md:flex items-center gap-6 text-sm text-white/60">
-              <span className="text-white font-semibold">Browse</span>
-              <span>Auctions</span>
-              <span>Categories</span>
+              <Link href="/auctions" className="hover:text-white transition-colors">Auctions</Link>
+              <CategoriesMenu categories={categories || []} />
             </div>
           </div>
 
