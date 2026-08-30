@@ -78,8 +78,13 @@ export async function resetPassword(formData: FormData) {
 
   const supabase = await createClient()
   
-  // Try to use headers for origin, fallback to localhost for dev
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'
+  // Resolve the best URL for the environment
+  let siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? process.env.NEXT_PUBLIC_VERCEL_URL ?? process.env.VERCEL_URL ?? 'http://localhost:3000'
+  
+  // Make sure to add https:// to Vercel URLs if not present
+  if (!siteUrl.startsWith('http')) {
+    siteUrl = `https://${siteUrl}`
+  }
   
   const { error } = await supabase.auth.resetPasswordForEmail(email, {
     redirectTo: `${siteUrl}/auth/callback?next=/reset-password`,
