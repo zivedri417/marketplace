@@ -33,75 +33,88 @@ export default function ResetPasswordPage() {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-950 p-4">
-      <div className="w-full max-w-md">
+    <div className="min-h-screen flex items-center justify-center bg-[#efe9dc] p-4">
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, ease: 'easeOut' }}
+        className="w-full max-w-md p-8 border border-[#14120e]/20 bg-[#efe9dc]"
+      >
         
         <div className="text-center mb-8">
-          <div className="mx-auto w-12 h-12 bg-white/5 border border-white/10 rounded-2xl flex items-center justify-center mb-4 shadow-xl">
-            <Lock className="w-6 h-6 text-purple-400" />
-          </div>
-          <h1 className="text-3xl font-bold text-white mb-2">Reset Password</h1>
-          <p className="text-gray-400 text-sm">
+          <h2 className="font-serif text-4xl text-[#14120e] mb-2">
+            Reset Password
+          </h2>
+          <p className="text-[#14120e]/55 text-sm">
             Please enter your new password below.
           </p>
         </div>
 
-        <div className="bg-white/5 border border-white/10 rounded-3xl p-8 backdrop-blur-xl">
-          <AnimatePresence mode="wait">
-            {error && (
-              <motion.div
-                initial={{ opacity: 0, height: 0, marginBottom: 0 }}
-                animate={{ opacity: 1, height: 'auto', marginBottom: 16 }}
-                exit={{ opacity: 0, height: 0, marginBottom: 0 }}
-                className="p-3 rounded-xl bg-red-500/10 border border-red-500/20 text-red-400 text-sm flex items-center gap-2"
-              >
-                <AlertCircle className="w-4 h-4" />
-                {error}
-              </motion.div>
-            )}
-          </AnimatePresence>
+        <AnimatePresence mode="wait">
+          {error && (
+            <motion.div
+              initial={{ opacity: 0, height: 0, marginBottom: 0 }}
+              animate={{ opacity: 1, height: 'auto', marginBottom: 16 }}
+              exit={{ opacity: 0, height: 0, marginBottom: 0 }}
+              className="p-3 border border-[#d93c14]/40 text-[#d93c14] text-sm text-center flex items-center justify-center gap-2"
+            >
+              <AlertCircle className="w-4 h-4" />
+              {error}
+            </motion.div>
+          )}
+        </AnimatePresence>
 
-          <form onSubmit={handleSubmit} className="space-y-5">
-            <div className="space-y-1.5">
-              <label className="text-sm font-medium text-gray-300">New Password</label>
+        <form onSubmit={handleSubmit} className="space-y-5">
+          <div className="space-y-2">
+            <label className="text-sm font-medium text-[#14120e]/70 ml-1">New Password</label>
+            <div className="relative">
+              <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                <Lock className="h-5 w-5 text-[#14120e]/40" />
+              </div>
               <input
                 name="password"
                 type="password"
                 required
-                className="w-full bg-black/50 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-purple-500 focus:ring-1 focus:ring-purple-500 transition-all"
+                className="w-full pl-10 pr-3 py-3 text-sm bg-transparent border border-[#14120e]/20 focus:outline-none focus:border-[#14120e]/60 transition-colors rounded-none text-[#14120e]"
                 placeholder="••••••••"
               />
             </div>
-            
-            <div className="space-y-1.5">
-              <label className="text-sm font-medium text-gray-300">Confirm Password</label>
+          </div>
+          
+          <div className="space-y-2">
+            <label className="text-sm font-medium text-[#14120e]/70 ml-1">Confirm Password</label>
+            <div className="relative">
+              <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                <Lock className="h-5 w-5 text-[#14120e]/40" />
+              </div>
               <input
                 name="confirmPassword"
                 type="password"
                 required
-                className="w-full bg-black/50 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-purple-500 focus:ring-1 focus:ring-purple-500 transition-all"
+                className="w-full pl-10 pr-3 py-3 text-sm bg-transparent border border-[#14120e]/20 focus:outline-none focus:border-[#14120e]/60 transition-colors rounded-none text-[#14120e]"
                 placeholder="••••••••"
               />
             </div>
+          </div>
 
-            <button
-              type="submit"
-              disabled={isSubmitting}
-              className="w-full flex items-center justify-center py-3 px-4 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 text-white rounded-xl font-semibold transition-all disabled:opacity-50"
-            >
-              {isSubmitting ? (
-                <Loader2 className="w-5 h-5 animate-spin" />
-              ) : (
-                <>
-                  Update Password
-                  <ArrowRight className="ml-2 w-4 h-4" />
-                </>
-              )}
-            </button>
-          </form>
-        </div>
+          <motion.button
+            whileTap={{ scale: 0.99 }}
+            type="submit"
+            disabled={isSubmitting}
+            className="w-full flex items-center justify-center py-3.5 px-4 bg-[#14120e] hover:bg-[#14120e]/90 text-[#efe9dc] text-sm transition-all disabled:opacity-50"
+          >
+            {isSubmitting ? (
+              <Loader2 className="w-5 h-5 animate-spin" />
+            ) : (
+              <>
+                Update Password
+                <ArrowRight className="ml-2 w-4 h-4" />
+              </>
+            )}
+          </motion.button>
+        </form>
 
-      </div>
+      </motion.div>
     </div>
   )
 }

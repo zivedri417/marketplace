@@ -1,9 +1,2 @@
-fix the reset password page
-the bug at the page :
-
-Build Error
-
-
-
-You cannot have two parallel pages that resolve to the same path. Please check /(auth)/reset-password and /reset-password.
-./src/app/reset-password
+reset password flow fixed, the page now works good.
+change the design of the reset password page to fit the rest of the site, like the homepage and the user page.
