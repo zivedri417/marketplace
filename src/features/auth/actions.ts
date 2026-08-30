@@ -86,6 +86,9 @@ export async function resetPassword(formData: FormData) {
     siteUrl = `https://${siteUrl}`
   }
   
+  // Remove any trailing slash to prevent double-slash in redirectTo
+  siteUrl = siteUrl.replace(/\/$/, '')
+  
   const { error } = await supabase.auth.resetPasswordForEmail(email, {
     redirectTo: `${siteUrl}/auth/callback?next=/reset-password`,
   })
