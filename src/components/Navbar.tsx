@@ -25,17 +25,17 @@ export async function Navbar() {
     .order('name')
 
   return (
-    <nav className="sticky top-0 z-50 w-full border-b border-white/[0.07] bg-[rgba(10,10,16,0.6)] backdrop-blur-2xl">
+    <nav className="sticky top-0 z-50 w-full border-b border-[#14120e]/15 bg-[#efe9dc]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16 gap-6">
 
           {/* Logo + nav labels */}
           <div className="flex items-center gap-9">
-            <Link href="/" className="text-xl font-bold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-indigo-400 to-purple-400">
+            <Link href="/" className="font-serif text-2xl tracking-tight text-[#14120e]">
               Marketplace
             </Link>
-            <div className="hidden md:flex items-center gap-6 text-sm text-white/60">
-              <Link href="/auctions" className="hover:text-white transition-colors">Auctions</Link>
+            <div className="hidden md:flex items-center gap-6 text-sm text-[#14120e]/60">
+              <Link href="/auctions" className="hover:text-[#14120e] transition-colors">Auctions</Link>
               <CategoriesMenu categories={categories || []} />
             </div>
           </div>
@@ -55,7 +55,7 @@ export async function Navbar() {
             {user ? (
               <Link
                 href="/profile"
-                className="flex-shrink-0 w-[38px] h-[38px] rounded-full bg-gradient-to-tr from-indigo-500 to-purple-500 flex items-center justify-center text-sm font-bold text-white hover:brightness-110 transition-all"
+                className="flex-shrink-0 w-[38px] h-[38px] border border-[#14120e] flex items-center justify-center font-serif text-lg text-[#14120e] hover:bg-[#14120e]/5 transition-colors"
                 title="Profile"
               >
                 {initial}
@@ -63,7 +63,7 @@ export async function Navbar() {
             ) : (
               <Link
                 href="/login"
-                className="inline-flex items-center justify-center px-4 py-2 rounded-full text-sm font-medium text-white/80 hover:text-white hover:bg-white/10 transition-all border border-white/10"
+                className="inline-flex items-center justify-center px-4 py-2 text-sm font-medium text-[#14120e]/80 hover:text-[#14120e] hover:bg-[#14120e]/5 transition-all border border-[#14120e]/20"
               >
                 <LogIn className="h-4 w-4 mr-2" />
                 Sign In

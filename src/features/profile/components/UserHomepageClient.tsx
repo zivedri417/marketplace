@@ -119,7 +119,7 @@ export function UserHomepageClient({
   ]
 
   return (
-    <div className="min-h-screen bg-[#07070b] py-12 px-4">
+    <div className="min-h-screen bg-[#efe9dc] py-12 px-4">
       <div className="max-w-6xl mx-auto space-y-8">
 
         {/* Success Banner */}
@@ -128,7 +128,7 @@ export function UserHomepageClient({
             <motion.div
               initial={{ opacity: 0, y: -20 }}
               animate={{ opacity: 1, y: 0 }}
-              className="flex items-center gap-3 px-[18px] py-3.5 rounded-2xl border border-emerald-400/28 bg-emerald-500/10 text-emerald-300 text-sm font-semibold"
+              className="flex items-center gap-3 px-[18px] py-3.5 border border-[#14120e]/25 bg-[#14120e]/[0.03] text-[#14120e] text-sm font-semibold"
             >
               <CheckCircle className="w-5 h-5 flex-shrink-0" />
               Item listed successfully! It is now visible on your homepage.
@@ -137,24 +137,22 @@ export function UserHomepageClient({
         </AnimatePresence>
 
         {/* Profile Header */}
-        <div className={`${cardClass} p-7 relative overflow-hidden`}>
-          <div className="absolute top-0 right-0 w-64 h-64 bg-purple-600/10 rounded-full blur-[80px]" />
-
-          <div className="flex flex-col md:flex-row gap-7 items-start md:items-start justify-between relative z-10">
+        <div className={`${cardClass} p-7`}>
+          <div className="flex flex-col md:flex-row gap-7 items-start md:items-start justify-between">
             <div className="flex gap-5">
-              <div className="w-[88px] h-[88px] flex-shrink-0 rounded-full bg-gradient-to-tr from-indigo-500 to-purple-500 flex items-center justify-center text-3xl font-bold text-white shadow-xl">
+              <div className="w-[88px] h-[88px] flex-shrink-0 border border-[#14120e] flex items-center justify-center font-serif text-4xl text-[#14120e]">
                 {profile.full_name?.charAt(0)?.toUpperCase() || 'U'}
               </div>
               <div>
-                <h1 className="text-[28px] font-bold text-white leading-tight">{profile.full_name || 'User'}</h1>
+                <h1 className="font-serif text-[34px] text-[#14120e] leading-tight">{profile.full_name || 'User'}</h1>
 
-                <div className="flex items-center gap-2 mt-2 text-sm text-white/62">
-                  <span className="text-yellow-300 text-base tracking-wider">★★★★★</span>
-                  <span className="font-semibold text-white">{averageRating.toFixed(1)}</span>
-                  <span className="text-white/45">· {reviews.length} review{reviews.length === 1 ? '' : 's'}</span>
+                <div className="flex items-center gap-2 mt-2 text-sm text-[#14120e]/62">
+                  <span className="text-[#d93c14] text-base tracking-wider">★★★★★</span>
+                  <span className="font-semibold text-[#14120e]">{averageRating.toFixed(1)}</span>
+                  <span className="text-[#14120e]/45">· {reviews.length} review{reviews.length === 1 ? '' : 's'}</span>
                 </div>
 
-                <div className="mt-3 max-w-xl text-white/70 text-[14.5px]">
+                <div className="mt-3 max-w-xl text-[#14120e]/70 text-[14.5px]">
                   {isEditingBio ? (
                     <form onSubmit={handleBioSubmit} className="space-y-3">
                       <textarea
@@ -163,7 +161,7 @@ export function UserHomepageClient({
                         className={`${inputClass} p-3 text-sm`}
                         rows={3}
                       />
-                      {bioError && <p className="text-red-400 text-sm">{bioError}</p>}
+                      {bioError && <p className="text-[#d93c14] text-sm">{bioError}</p>}
                       <div className="flex gap-2">
                         <button type="submit" className={`${pillButtonPrimary} px-4 py-2 text-sm`}>Save</button>
                         <button type="button" onClick={() => setIsEditingBio(false)} className={`${pillButtonSecondary} px-4 py-2 text-sm`}>Cancel</button>
@@ -173,7 +171,7 @@ export function UserHomepageClient({
                     <div className="flex items-start gap-3">
                       <p className="whitespace-pre-wrap leading-relaxed">{profile.bio || "No bio added yet."}</p>
                       {isOwner && (
-                        <button onClick={() => setIsEditingBio(true)} className="text-white/40 hover:text-white transition-colors flex-shrink-0">
+                        <button onClick={() => setIsEditingBio(true)} className="text-[#14120e]/40 hover:text-[#14120e] transition-colors flex-shrink-0">
                           <Edit3 className="w-4 h-4" />
                         </button>
                       )}
@@ -191,19 +189,19 @@ export function UserHomepageClient({
                   </button>
                 </form>
               )}
-              <div className="flex gap-5 px-5 py-3.5 rounded-[18px] border border-white/10 bg-white/[0.04]">
+              <div className="flex gap-5 px-5 py-3.5 border border-[#14120e]/15">
                 <div className="text-center">
-                  <div className="text-xl font-bold">{listings.length}</div>
-                  <div className="text-[11px] text-white/50">Listings</div>
+                  <div className="font-mono text-xl">{listings.length}</div>
+                  <div className="text-[11px] text-[#14120e]/50">Listings</div>
                 </div>
                 <div className="text-center">
-                  <div className="text-xl font-bold">{reviews.length}</div>
-                  <div className="text-[11px] text-white/50">Reviews</div>
+                  <div className="font-mono text-xl">{reviews.length}</div>
+                  <div className="text-[11px] text-[#14120e]/50">Reviews</div>
                 </div>
                 {isOwner && (
                   <div className="text-center">
-                    <div className="text-xl font-bold">{conversations.length}</div>
-                    <div className="text-[11px] text-white/50">Conversations</div>
+                    <div className="font-mono text-xl">{conversations.length}</div>
+                    <div className="text-[11px] text-[#14120e]/50">Conversations</div>
                   </div>
                 )}
               </div>
@@ -212,13 +210,13 @@ export function UserHomepageClient({
         </div>
 
         {/* Navigation Tabs */}
-        <div className="flex gap-1.5 p-1.5 rounded-full border border-white/10 bg-white/[0.04] w-fit">
-          {tabs.filter(t => t.show).map(t => (
+        <div className="flex border border-[#14120e] w-fit font-mono text-[11px] tracking-[0.14em] uppercase">
+          {tabs.filter(t => t.show).map((t, idx) => (
             <button
               key={t.id}
               onClick={() => setActiveTab(t.id)}
-              className={`flex items-center gap-2 px-6 py-2.5 rounded-full text-sm font-semibold transition-colors whitespace-nowrap ${
-                activeTab === t.id ? 'text-white bg-gradient-to-r from-indigo-600 to-purple-600' : 'text-white/62 hover:text-white'
+              className={`flex items-center gap-2 px-6 py-3 transition-colors whitespace-nowrap ${idx > 0 ? 'border-l border-[#14120e]' : ''} ${
+                activeTab === t.id ? 'text-[#efe9dc] bg-[#14120e]' : 'text-[#14120e]/62 hover:bg-[#14120e]/5'
               }`}
             >
               <t.icon className="w-4 h-4" /> {t.label}
@@ -231,7 +229,7 @@ export function UserHomepageClient({
           {activeTab === 'listings' && (
             <motion.div key="listings" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
               {listings.length === 0 ? (
-                <div className="col-span-full text-center py-16 text-white/45">No active listings.</div>
+                <div className="col-span-full text-center py-16 text-[#14120e]/45">No active listings.</div>
               ) : (
                 listings.map((item: any) => <ProductCard item={item} now={now} key={item.id} />)
               )}
@@ -243,8 +241,8 @@ export function UserHomepageClient({
               {!isOwner && (
                 <div className={`${cardClass} p-[22px] md:col-span-2`}>
                   {!currentUserId ? (
-                    <p className="text-sm text-white/62">
-                      <Link href="/login" className="text-indigo-300 hover:text-indigo-200 font-semibold">Log in</Link> to leave a review for {profile.full_name || 'this user'}.
+                    <p className="text-sm text-[#14120e]/62">
+                      <Link href="/login" className="text-[#d93c14] hover:text-[#d93c14]/80 font-semibold">Log in</Link> to leave a review for {profile.full_name || 'this user'}.
                     </p>
                   ) : showReviewForm ? (
                     <form onSubmit={handleReviewSubmit} className="space-y-4">
@@ -261,7 +259,7 @@ export function UserHomepageClient({
                               className="text-2xl leading-none transition-transform hover:scale-110"
                               aria-label={`${n} star${n === 1 ? '' : 's'}`}
                             >
-                              <span className={(reviewHoverRating || reviewRating) >= n ? 'text-yellow-300' : 'text-white/20'}>★</span>
+                              <span className={(reviewHoverRating || reviewRating) >= n ? 'text-[#d93c14]' : 'text-[#14120e]/20'}>★</span>
                             </button>
                           ))}
                         </div>
@@ -276,9 +274,9 @@ export function UserHomepageClient({
                           placeholder="Share your experience…"
                           className={`${inputClass} p-3 text-sm mt-2`}
                         />
-                        <div className="text-right text-[11px] text-white/40 mt-1">{reviewComment.length}/{MAX_REVIEW_COMMENT_LENGTH}</div>
+                        <div className="text-right text-[11px] text-[#14120e]/40 mt-1">{reviewComment.length}/{MAX_REVIEW_COMMENT_LENGTH}</div>
                       </div>
-                      {reviewError && <p className="text-red-400 text-sm">{reviewError}</p>}
+                      {reviewError && <p className="text-[#d93c14] text-sm">{reviewError}</p>}
                       <div className="flex gap-2">
                         <button type="submit" disabled={isSubmittingReview} className={`${pillButtonPrimary} px-5 py-2.5 text-sm`}>
                           {isSubmittingReview ? 'Submitting…' : 'Submit Review'}
@@ -294,26 +292,26 @@ export function UserHomepageClient({
                 </div>
               )}
               {reviews.length === 0 ? (
-                <div className="col-span-full text-center py-16 text-white/45">No reviews yet.</div>
+                <div className="col-span-full text-center py-16 text-[#14120e]/45">No reviews yet.</div>
               ) : (
                 reviews.map((rev: any) => (
                   <div key={rev.id} className={`${cardClass} p-[22px]`}>
                     <div className="flex justify-between items-start gap-4">
                       <div className="flex items-center gap-3">
-                        <div className="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center text-white font-semibold text-[15px] flex-shrink-0">
+                        <div className="w-10 h-10 border border-[#14120e]/25 flex items-center justify-center text-[#14120e] font-semibold text-[15px] flex-shrink-0">
                           {rev.reviewer?.full_name?.charAt(0)?.toUpperCase() || 'U'}
                         </div>
                         <div>
-                          <p className="font-semibold text-white text-[14.5px]">{rev.reviewer?.full_name || 'Anonymous'}</p>
+                          <p className="font-semibold text-[#14120e] text-[14.5px]">{rev.reviewer?.full_name || 'Anonymous'}</p>
                           <div className="mt-0.5 text-[15px] tracking-wider">
-                            <span className="text-yellow-300">{'★'.repeat(rev.rating)}</span>
-                            <span className="text-white/20">{'★'.repeat(5 - rev.rating)}</span>
+                            <span className="text-[#d93c14]">{'★'.repeat(rev.rating)}</span>
+                            <span className="text-[#14120e]/20">{'★'.repeat(5 - rev.rating)}</span>
                           </div>
                         </div>
                       </div>
-                      <span className="text-xs text-white/42 flex-shrink-0">{new Date(rev.created_at).toLocaleDateString()}</span>
+                      <span className="text-xs text-[#14120e]/42 flex-shrink-0">{new Date(rev.created_at).toLocaleDateString()}</span>
                     </div>
-                    {rev.comment && <p className="mt-3.5 text-[14px] leading-relaxed text-white/72">{rev.comment}</p>}
+                    {rev.comment && <p className="mt-3.5 text-[14px] leading-relaxed text-[#14120e]/72">{rev.comment}</p>}
                   </div>
                 ))
               )}
@@ -326,7 +324,7 @@ export function UserHomepageClient({
               <div className={`${cardClass} p-3.5 flex flex-col gap-2 overflow-y-auto`}>
                 <div className={monoLabelClass + ' px-2 py-1.5'}>Conversations</div>
                 {conversations.length === 0 ? (
-                  <div className="p-6 text-center text-white/45 text-sm">No active conversations.</div>
+                  <div className="p-6 text-center text-[#14120e]/45 text-sm">No active conversations.</div>
                 ) : (
                   conversations.map((conv: any) => {
                     const isBuyer = conv.buyer_id === currentUserId
@@ -337,14 +335,14 @@ export function UserHomepageClient({
                       <button
                         key={conv.id}
                         onClick={() => loadMessages(conv.id)}
-                        className={`w-full text-left p-3.5 rounded-2xl transition-colors cursor-pointer ${
+                        className={`w-full text-left p-3.5 transition-colors cursor-pointer ${
                           isActive
-                            ? 'border border-indigo-300/30 bg-gradient-to-br from-indigo-600/20 to-purple-600/[0.12]'
-                            : 'border border-white/[0.07] bg-white/[0.03] hover:bg-white/[0.07]'
+                            ? 'border border-[#14120e] bg-[#14120e]/[0.04]'
+                            : 'border border-[#14120e]/10 hover:bg-[#14120e]/[0.03]'
                         }`}
                       >
-                        <div className="font-semibold text-white text-sm truncate">{conv.product?.title || 'Unknown Item'}</div>
-                        <div className="text-[12.5px] text-white/55 mt-1">{otherPartyName}</div>
+                        <div className="font-semibold text-[#14120e] text-sm truncate">{conv.product?.title || 'Unknown Item'}</div>
+                        <div className="text-[12.5px] text-[#14120e]/55 mt-1">{otherPartyName}</div>
                       </button>
                     )
                   })
@@ -360,10 +358,10 @@ export function UserHomepageClient({
                         const isMe = msg.sender_id === currentUserId
                         return (
                           <div key={msg.id} className={`flex ${isMe ? 'justify-end' : 'justify-start'}`}>
-                            <div className={`max-w-[70%] px-4 py-3 text-sm leading-relaxed ${
+                            <div className={`max-w-[70%] px-4 py-3 text-sm leading-relaxed border ${
                               isMe
-                                ? 'rounded-[18px_18px_6px_18px] bg-gradient-to-r from-indigo-600 to-purple-600 text-white'
-                                : 'rounded-[18px_18px_18px_6px] bg-white/[0.08] border border-white/[0.08] text-white/88'
+                                ? 'bg-[#14120e] border-[#14120e] text-[#efe9dc]'
+                                : 'bg-transparent border-[#14120e]/15 text-[#14120e]/88'
                             }`}>
                               {msg.content}
                             </div>
@@ -371,24 +369,24 @@ export function UserHomepageClient({
                         )
                       })}
                       {messages.length === 0 && (
-                        <div className="h-full flex items-center justify-center text-white/40 text-sm">No messages yet. Say hi!</div>
+                        <div className="h-full flex items-center justify-center text-[#14120e]/40 text-sm">No messages yet. Say hi!</div>
                       )}
                     </div>
-                    <form onSubmit={sendMessage} className="flex gap-2.5 p-4 border-t border-white/[0.07]">
+                    <form onSubmit={sendMessage} className="flex gap-2.5 p-4 border-t border-[#14120e]/15">
                       <input
                         type="text"
                         value={newMessage}
                         onChange={e => setNewMessage(e.target.value)}
                         placeholder="Write a message…"
-                        className={`${inputClass} flex-1 px-4 py-3 text-sm rounded-full`}
+                        className={`${inputClass} flex-1 px-4 py-3 text-sm`}
                       />
-                      <button type="submit" className="w-[46px] h-[46px] flex-shrink-0 rounded-full bg-gradient-to-r from-indigo-600 to-purple-600 hover:brightness-110 text-white flex items-center justify-center transition-all">
+                      <button type="submit" className="w-[46px] h-[46px] flex-shrink-0 bg-[#14120e] hover:bg-[#14120e]/85 text-[#efe9dc] flex items-center justify-center transition-colors">
                         <Send className="w-4 h-4" />
                       </button>
                     </form>
                   </>
                 ) : (
-                  <div className="h-full flex items-center justify-center text-white/40 flex-col gap-3">
+                  <div className="h-full flex items-center justify-center text-[#14120e]/40 flex-col gap-3">
                     <MessageSquare className="w-10 h-10 opacity-50" />
                     <p className="text-sm">Select a conversation to start chatting.</p>
                   </div>

@@ -26,21 +26,17 @@ export default async function Home({
     .order('created_at', { ascending: false })
 
   return (
-    <div className="min-h-screen bg-[#07070b] text-white pt-16">
+    <div className="min-h-screen bg-[#efe9dc] text-[#14120e] pt-16">
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="flex justify-between items-end mb-8 gap-6 flex-wrap">
           <div>
-            <h1 className="text-[34px] font-bold tracking-tight">Discover unique items</h1>
-            <p className="text-white/55 mt-2 text-[15px]">Fresh listings and live auctions from our community.</p>
+            <h1 className="font-serif text-[44px] leading-none tracking-tight">Discover unique items</h1>
+            <p className="text-[#14120e]/55 mt-3 text-[15px]">Fresh listings and live auctions from our community.</p>
           </div>
         </div>
 
         <ProductGrid products={products || []} initialFilter={initialFilter} />
       </main>
-
-      {/* Abstract Background */}
-      <div className="fixed top-[-50%] left-[-20%] w-[100%] h-[100%] rounded-full bg-indigo-900/20 blur-[150px] pointer-events-none -z-10" />
-      <div className="fixed bottom-[-50%] right-[-20%] w-[100%] h-[100%] rounded-full bg-fuchsia-900/20 blur-[150px] pointer-events-none -z-10" />
     </div>
   )
 }

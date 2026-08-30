@@ -15,7 +15,7 @@ export function ResetPasswordForm() {
     setIsPending(true)
     setError(null)
     const formData = new FormData(e.currentTarget)
-    
+
     // Check if passwords match
     if (formData.get('password') !== formData.get('confirmPassword')) {
       setError('Passwords do not match')
@@ -32,17 +32,17 @@ export function ResetPasswordForm() {
   }
 
   return (
-    <motion.div 
+    <motion.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, ease: 'easeOut' }}
-      className="w-full max-w-md p-8 rounded-[24px] bg-white/5 backdrop-blur-xl border border-white/10 shadow-[0_8px_32px_0_rgba(0,0,0,0.3)] relative overflow-hidden"
+      className="w-full max-w-md p-8 border border-[#14120e]/20 bg-[#efe9dc]"
     >
       <div className="mb-8 text-center">
-        <h2 className="text-3xl font-bold tracking-tight text-white mb-2">
+        <h2 className="font-serif text-4xl text-[#14120e] mb-2">
           New Password
         </h2>
-        <p className="text-white/50 text-sm">
+        <p className="text-[#14120e]/55 text-sm">
           Enter your new password below.
         </p>
       </div>
@@ -53,7 +53,7 @@ export function ResetPasswordForm() {
             initial={{ opacity: 0, height: 0, marginBottom: 0 }}
             animate={{ opacity: 1, height: 'auto', marginBottom: 16 }}
             exit={{ opacity: 0, height: 0, marginBottom: 0 }}
-            className="p-3 rounded-xl bg-red-500/10 border border-red-500/20 text-red-400 text-sm text-center"
+            className="p-3 border border-[#d93c14]/40 text-[#d93c14] text-sm text-center"
           >
             {error}
           </motion.div>
@@ -62,10 +62,10 @@ export function ResetPasswordForm() {
 
       <form onSubmit={handleSubmit} className="space-y-5">
         <div className="space-y-2">
-          <label className="text-sm font-medium text-gray-300 ml-1">New Password</label>
+          <label className="text-sm font-medium text-[#14120e]/70 ml-1">New Password</label>
           <div className="relative">
             <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-              <Lock className="h-5 w-5 text-gray-500" />
+              <Lock className="h-5 w-5 text-[#14120e]/40" />
             </div>
             <input
               name="password"
@@ -78,10 +78,10 @@ export function ResetPasswordForm() {
         </div>
 
         <div className="space-y-2">
-          <label className="text-sm font-medium text-gray-300 ml-1">Confirm New Password</label>
+          <label className="text-sm font-medium text-[#14120e]/70 ml-1">Confirm New Password</label>
           <div className="relative">
             <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-              <Lock className="h-5 w-5 text-gray-500" />
+              <Lock className="h-5 w-5 text-[#14120e]/40" />
             </div>
             <input
               name="confirmPassword"
@@ -94,23 +94,19 @@ export function ResetPasswordForm() {
         </div>
 
         <motion.button
-          whileHover={{ scale: 1.02 }}
-          whileTap={{ scale: 0.98 }}
+          whileTap={{ scale: 0.99 }}
           type="submit"
           disabled={isPending}
-          className={`w-full py-3.5 px-4 text-sm group relative overflow-hidden ${pillButtonPrimary}`}
+          className={`w-full py-3.5 px-4 text-sm ${pillButtonPrimary}`}
         >
-          <div className="absolute inset-0 w-full h-full bg-white/20 blur-md opacity-0 group-hover:opacity-100 transition-opacity" />
-          <span className="relative flex items-center">
-            {isPending ? (
-              <Loader2 className="animate-spin h-5 w-5 mr-2" />
-            ) : (
-              <>
-                Update Password
-                <ArrowRight className="h-4 w-4 ml-2 group-hover:translate-x-1 transition-transform" />
-              </>
-            )}
-          </span>
+          {isPending ? (
+            <Loader2 className="animate-spin h-5 w-5 mr-2" />
+          ) : (
+            <>
+              Update Password
+              <ArrowRight className="h-4 w-4 ml-2" />
+            </>
+          )}
         </motion.button>
       </form>
     </motion.div>

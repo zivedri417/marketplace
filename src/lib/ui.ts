@@ -1,43 +1,52 @@
-// Shared styling tokens for the "premium P2P" dark-glass design system.
-// Centralized here so every restyled component pulls the same look instead of
-// re-typing long arbitrary-value Tailwind strings.
+// Shared styling tokens for the "paper catalogue" design system: warm paper
+// background, hairline ink borders, square corners, and a single vermilion
+// accent reserved for live/urgent states. Centralized here so every restyled
+// component pulls the same look instead of re-typing long arbitrary-value
+// Tailwind strings.
+
+export const paper = '#efe9dc'
+export const ink = '#14120e'
+export const vermilion = '#d93c14'
+export const peach = '#f0a98f'
 
 export const cardClass =
-  'rounded-[22px] border border-white/10 bg-white/[0.045] backdrop-blur-xl transition-colors'
+  'border border-[#14120e]/15 bg-[#efe9dc] transition-colors'
 
 export const cardHoverClass =
-  'hover:border-indigo-300/40 hover:-translate-y-0.5 transition-all duration-300'
+  'hover:border-[#14120e]/45 transition-colors duration-200'
 
 export const monoLabelClass =
-  'font-mono text-[10px] tracking-[0.16em] uppercase text-white/40'
+  'font-mono text-[10px] tracking-[0.16em] uppercase text-[#14120e]/50'
 
 export const pillButtonPrimary =
-  'inline-flex items-center justify-center rounded-full font-semibold text-white bg-gradient-to-r from-indigo-600 to-purple-600 hover:brightness-110 shadow-[0_10px_30px_-12px_rgba(124,58,237,0.9)] transition-all disabled:opacity-60 disabled:cursor-not-allowed'
+  'inline-flex items-center justify-center font-mono text-[11px] tracking-[0.14em] uppercase text-[#efe9dc] bg-[#14120e] hover:bg-[#14120e]/85 transition-colors disabled:opacity-50 disabled:cursor-not-allowed'
 
 export const pillButtonSecondary =
-  'inline-flex items-center justify-center rounded-full font-semibold text-white/85 bg-white/[0.06] border border-white/15 hover:bg-white/[0.12] transition-all disabled:opacity-60 disabled:cursor-not-allowed'
+  'inline-flex items-center justify-center font-mono text-[11px] tracking-[0.14em] uppercase text-[#14120e] bg-transparent border border-[#14120e] hover:bg-[#14120e]/5 transition-colors disabled:opacity-50 disabled:cursor-not-allowed'
 
 export const pillButtonDanger =
-  'inline-flex items-center justify-center rounded-full font-semibold text-red-300 bg-red-400/10 border border-red-400/30 hover:bg-red-400/20 transition-all disabled:opacity-60 disabled:cursor-not-allowed'
+  'inline-flex items-center justify-center font-mono text-[11px] tracking-[0.14em] uppercase text-white bg-[#d93c14] hover:bg-[#d93c14]/85 transition-colors disabled:opacity-50 disabled:cursor-not-allowed'
 
 export const inputClass =
-  'w-full rounded-2xl border border-white/10 bg-white/5 text-white placeholder-white/30 outline-none focus:border-indigo-300/70 transition-colors'
+  'w-full border border-[#14120e]/25 bg-transparent text-[#14120e] placeholder-[#14120e]/40 outline-none focus:border-[#14120e] transition-colors'
 
-export const priceGradientClass =
-  'bg-clip-text text-transparent bg-gradient-to-r from-indigo-300 to-purple-300'
+// Plain ink price text (the mockup's "vermilion only means the clock is
+// running" rule — settled/buy-now prices stay neutral ink; call sites that
+// render a live countdown price use the vermilion color directly instead).
+export const priceClass = 'text-[#14120e]'
 
 type StatusKind = 'auction' | 'available' | 'ending-soon' | 'sold' | 'ended'
 
 const statusStyles: Record<StatusKind, string> = {
-  auction: 'bg-gradient-to-r from-violet-700 to-purple-600 text-white',
-  available: 'bg-emerald-400/15 text-emerald-300 border border-emerald-400/30',
-  'ending-soon': 'bg-yellow-400/15 text-yellow-300 border border-yellow-400/30',
-  sold: 'bg-red-400/15 text-red-300 border border-red-400/30',
-  ended: 'bg-white/10 text-white/70 border border-white/15',
+  auction: 'bg-[#14120e] text-[#efe9dc]',
+  available: 'border border-[#14120e]/30 text-[#14120e]/70',
+  'ending-soon': 'bg-[#d93c14] text-white',
+  sold: 'border-2 border-[#d93c14] text-[#d93c14] bg-[#efe9dc]/80',
+  ended: 'bg-[#d93c14] text-white',
 }
 
 export function statusPill(kind: StatusKind) {
-  return `inline-flex items-center px-3 py-[5px] rounded-full text-[11px] font-bold tracking-wider ${statusStyles[kind]}`
+  return `inline-flex items-center px-2.5 py-[5px] font-mono text-[10px] tracking-[0.14em] uppercase ${statusStyles[kind]}`
 }
 
 // Auction cards/panels count down toward "ending soon" inside this window.

@@ -34,15 +34,15 @@ export function ProductGrid({ products, initialFilter }: { products: any[], init
 
   return (
     <div>
-      <div className="flex gap-2 flex-wrap mb-6">
-        {FILTERS.map((f) => (
+      <div className="flex mb-6 border border-[#14120e] self-start w-fit font-mono text-[11px] tracking-[0.14em] uppercase">
+        {FILTERS.map((f, idx) => (
           <button
             key={f.id}
             onClick={() => setFilter(f.id)}
-            className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
+            className={`px-5 py-3 transition-colors ${idx > 0 ? 'border-l border-[#14120e]' : ''} ${
               filter === f.id
-                ? 'bg-white text-[#0b0b12]'
-                : 'border border-white/10 bg-white/[0.04] text-white/70 hover:bg-white/10'
+                ? 'bg-[#14120e] text-[#efe9dc]'
+                : 'text-[#14120e]/70 hover:bg-[#14120e]/5'
             }`}
           >
             {f.label}
@@ -51,19 +51,19 @@ export function ProductGrid({ products, initialFilter }: { products: any[], init
       </div>
 
       {visible.length === 0 ? (
-        <div className="col-span-full py-16 px-8 text-center border border-dashed border-white/15 rounded-[22px]">
-          <div className="w-[52px] h-[52px] mx-auto rounded-2xl bg-gradient-to-br from-indigo-600/35 to-purple-600/35 border border-white/10 flex items-center justify-center">
-            <PackageOpen className="w-6 h-6 text-white/70" />
+        <div className="col-span-full py-16 px-8 text-center border border-dashed border-[#14120e]/25">
+          <div className="w-[52px] h-[52px] mx-auto border border-[#14120e]/25 flex items-center justify-center">
+            <PackageOpen className="w-6 h-6 text-[#14120e]/70" />
           </div>
           {products.length === 0 ? (
             <>
-              <div className="mt-4 text-lg font-semibold text-white">No items available right now</div>
-              <div className="mt-2 text-sm text-white/55">Be the first to list one — it takes about a minute.</div>
+              <div className="mt-4 font-serif text-2xl text-[#14120e]">No items available right now</div>
+              <div className="mt-2 text-sm text-[#14120e]/55">Be the first to list one — it takes about a minute.</div>
             </>
           ) : (
             <>
-              <div className="mt-4 text-lg font-semibold text-white">No items match this filter</div>
-              <div className="mt-2 text-sm text-white/55">Try a different tab, or be the first to list one.</div>
+              <div className="mt-4 font-serif text-2xl text-[#14120e]">No items match this filter</div>
+              <div className="mt-2 text-sm text-[#14120e]/55">Try a different tab, or be the first to list one.</div>
             </>
           )}
           <Link href="/products/new" className={`${pillButtonPrimary} mt-5 px-6 py-3 text-sm`}>

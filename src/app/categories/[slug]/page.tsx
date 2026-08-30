@@ -40,22 +40,18 @@ export default async function CategoryPage({ params }: { params: Promise<{ slug:
   const count = products?.length || 0
 
   return (
-    <div className="min-h-screen bg-[#07070b] text-white pt-16">
+    <div className="min-h-screen bg-[#efe9dc] text-[#14120e] pt-16">
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="mb-8">
           <div className={monoLabelClass}>Category</div>
-          <h1 className="mt-2 text-[34px] font-bold tracking-tight">{category.name}</h1>
-          <p className="text-white/55 mt-2 text-[15px]">
+          <h1 className="mt-2 font-serif text-[44px] leading-none tracking-tight">{category.name}</h1>
+          <p className="text-[#14120e]/55 mt-3 text-[15px]">
             {count} item{count === 1 ? '' : 's'} listed in this category.
           </p>
         </div>
 
         <ProductGrid products={products || []} />
       </main>
-
-      {/* Abstract Background */}
-      <div className="fixed top-[-50%] left-[-20%] w-[100%] h-[100%] rounded-full bg-indigo-900/20 blur-[150px] pointer-events-none -z-10" />
-      <div className="fixed bottom-[-50%] right-[-20%] w-[100%] h-[100%] rounded-full bg-fuchsia-900/20 blur-[150px] pointer-events-none -z-10" />
     </div>
   )
 }

@@ -141,17 +141,17 @@ export function ListProductForm({ categories }: { categories: Category[] }) {
   }
 
   return (
-    <motion.form 
+    <motion.form
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
-      className="max-w-3xl mx-auto p-8 sm:p-10 rounded-[28px] bg-[#08080d] border border-white/10 shadow-[0_8px_32px_0_rgba(0,0,0,0.3)] text-white space-y-8"
+      className="max-w-3xl mx-auto p-8 sm:p-10 border border-[#14120e]/15 bg-[#efe9dc] text-[#14120e] space-y-8"
       onSubmit={handleSubmit}
     >
       <div className="mb-8">
-        <h2 className="text-[30px] font-bold tracking-tight text-white">
+        <h2 className="font-serif text-4xl text-[#14120e]">
           List an Item
         </h2>
-        <p className="text-white/55 text-sm mt-2">Good photos and an honest description sell twice as fast.</p>
+        <p className="text-[#14120e]/55 text-sm mt-2">Good photos and an honest description sell twice as fast.</p>
       </div>
 
       <AnimatePresence>
@@ -160,7 +160,7 @@ export function ListProductForm({ categories }: { categories: Category[] }) {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
-            className="p-4 rounded-xl bg-red-500/10 border border-red-500/20 text-red-400 text-sm text-center"
+            className="p-4 border border-[#d93c14]/40 text-[#d93c14] text-sm text-center"
           >
             {error}
           </motion.div>
@@ -170,37 +170,37 @@ export function ListProductForm({ categories }: { categories: Category[] }) {
       {/* Primary Image Section */}
       <div className="space-y-4">
         <div className={monoLabelClass}>01 · Primary Image (required)</div>
-        <p className="text-xs text-white/45">This photo represents your item in the browse grid and is shown first on the item page.</p>
+        <p className="text-xs text-[#14120e]/45">This photo represents your item in the browse grid and is shown first on the item page.</p>
 
         {primaryImage ? (
-          <div className="relative group w-40 h-40 rounded-2xl overflow-hidden border-2 border-purple-500/50">
+          <div className="relative group w-40 h-40 overflow-hidden border-2 border-[#14120e]">
             <img
               src={URL.createObjectURL(primaryImage)}
               alt="primary preview"
               className="w-full h-full object-cover"
             />
-            <div className="absolute top-2 left-2 bg-purple-600 text-white text-xs font-bold px-2 py-1 rounded-full flex items-center gap-1 shadow-lg">
-              <Star className="w-3 h-3 fill-white" /> Primary
+            <div className="absolute top-2 left-2 bg-[#14120e] text-[#efe9dc] text-xs font-mono uppercase tracking-[0.1em] px-2 py-1 flex items-center gap-1">
+              <Star className="w-3 h-3 fill-[#efe9dc]" /> Primary
             </div>
             <button
               type="button"
               onClick={removePrimaryImage}
-              className="absolute inset-0 bg-black/50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity"
+              className="absolute inset-0 bg-[#14120e]/60 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity"
             >
-              <X className="w-6 h-6 text-white" />
+              <X className="w-6 h-6 text-[#efe9dc]" />
             </button>
           </div>
         ) : (
           <div
             {...getPrimaryRootProps()}
-            className={`border-[1.5px] border-dashed rounded-[22px] p-8 h-[230px] flex flex-col items-center justify-center gap-2 text-center cursor-pointer transition-colors ${
-              isPrimaryDragActive ? 'border-purple-300/70 bg-indigo-500/[0.12]' : 'border-indigo-300/35 bg-indigo-500/[0.07] hover:border-purple-300/70 hover:bg-indigo-500/[0.12]'
+            className={`border-[1.5px] border-dashed p-8 h-[230px] flex flex-col items-center justify-center gap-2 text-center cursor-pointer transition-colors ${
+              isPrimaryDragActive ? 'border-[#d93c14] bg-[#d93c14]/[0.06]' : 'border-[#14120e]/35 bg-[#14120e]/[0.03] hover:border-[#d93c14] hover:bg-[#d93c14]/[0.06]'
             }`}
           >
             <input {...getPrimaryInputProps()} />
-            <Star className="mx-auto h-10 w-10 text-white/40 mb-1" />
-            <p className="text-[15px] font-semibold text-white">Drag &amp; drop your primary image here, or click to select</p>
-            <p className="text-xs text-white/45">JPEG, PNG, WebP, or BMP only.</p>
+            <Star className="mx-auto h-10 w-10 text-[#14120e]/40 mb-1" />
+            <p className="text-[15px] font-semibold text-[#14120e]">Drag &amp; drop your primary image here, or click to select</p>
+            <p className="text-xs text-[#14120e]/45">JPEG, PNG, WebP, or BMP only.</p>
           </div>
         )}
       </div>
@@ -210,30 +210,30 @@ export function ListProductForm({ categories }: { categories: Category[] }) {
         <div className={monoLabelClass}>02 · Additional Images (up to {MAX_ADDITIONAL_IMAGES})</div>
         <div
           {...getRootProps()}
-          className={`border-[1.5px] border-dashed rounded-[22px] p-8 text-center cursor-pointer transition-colors ${
-            isDragActive ? 'border-purple-300/70 bg-indigo-500/[0.12]' : 'border-white/20 bg-white/5 hover:bg-white/10'
+          className={`border-[1.5px] border-dashed p-8 text-center cursor-pointer transition-colors ${
+            isDragActive ? 'border-[#d93c14] bg-[#d93c14]/[0.06]' : 'border-[#14120e]/25 bg-[#14120e]/[0.02] hover:bg-[#14120e]/[0.05]'
           }`}
         >
           <input {...getInputProps()} />
-          <ImageIcon className="mx-auto h-12 w-12 text-white/40 mb-4" />
-          <p className="text-sm text-white/70">Drag &amp; drop some images here, or click to select</p>
+          <ImageIcon className="mx-auto h-12 w-12 text-[#14120e]/40 mb-4" />
+          <p className="text-sm text-[#14120e]/70">Drag &amp; drop some images here, or click to select</p>
         </div>
 
         {images.length > 0 && (
           <div className="flex flex-wrap gap-4 mt-4">
             {images.map((file, idx) => (
-              <div key={idx} className="relative group w-24 h-24 rounded-xl overflow-hidden border border-white/20">
-                <img 
-                  src={URL.createObjectURL(file)} 
-                  alt="preview" 
+              <div key={idx} className="relative group w-24 h-24 overflow-hidden border border-[#14120e]/25">
+                <img
+                  src={URL.createObjectURL(file)}
+                  alt="preview"
                   className="w-full h-full object-cover"
                 />
                 <button
                   type="button"
                   onClick={() => removeImage(idx)}
-                  className="absolute inset-0 bg-black/50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity"
+                  className="absolute inset-0 bg-[#14120e]/60 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity"
                 >
-                  <X className="w-6 h-6 text-white" />
+                  <X className="w-6 h-6 text-[#efe9dc]" />
                 </button>
               </div>
             ))}
@@ -246,17 +246,17 @@ export function ListProductForm({ categories }: { categories: Category[] }) {
         <div className={monoLabelClass}>03 · Item Details</div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div className="space-y-2 md:col-span-2">
-            <label className="text-[12.5px] text-white/60 ml-1">Title</label>
+            <label className="text-[12.5px] text-[#14120e]/60 ml-1">Title</label>
             <div className="relative">
               <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                <Tag className="h-5 w-5 text-white/35" />
+                <Tag className="h-5 w-5 text-[#14120e]/35" />
               </div>
               <input name="title" required className={`${inputClass} pl-10 pr-3 py-3 text-sm`} placeholder="e.g. Mid-century teak lounge chair" />
             </div>
           </div>
 
           <div className="space-y-2">
-            <label className="text-[12.5px] text-white/60 ml-1">Category</label>
+            <label className="text-[12.5px] text-[#14120e]/60 ml-1">Category</label>
             <select name="category_id" required className={`${inputClass} px-3.5 py-3 text-sm appearance-none [&>option]:text-black`}>
               <option value="">Select a category</option>
               {categories.map(c => <option key={c.id} value={c.id}>{c.name}</option>)}
@@ -264,20 +264,20 @@ export function ListProductForm({ categories }: { categories: Category[] }) {
           </div>
 
           <div className="space-y-2">
-            <label className="text-[12.5px] text-white/60 ml-1">Location</label>
+            <label className="text-[12.5px] text-[#14120e]/60 ml-1">Location</label>
             <div className="relative">
               <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                <MapPin className="h-5 w-5 text-white/35" />
+                <MapPin className="h-5 w-5 text-[#14120e]/35" />
               </div>
               <input name="location" required className={`${inputClass} pl-10 pr-3 py-3 text-sm`} placeholder="City, country" />
             </div>
           </div>
 
           <div className="space-y-2 md:col-span-2">
-            <label className="text-[12.5px] text-white/60 ml-1">Description</label>
+            <label className="text-[12.5px] text-[#14120e]/60 ml-1">Description</label>
             <div className="relative">
               <div className="absolute top-3 left-3 pointer-events-none">
-                <FileText className="h-5 w-5 text-white/35" />
+                <FileText className="h-5 w-5 text-[#14120e]/35" />
               </div>
               <textarea name="description" rows={4} className={`${inputClass} pl-10 pr-3 py-3 text-sm resize-y`} placeholder="Condition, history, flaws, dimensions…" />
             </div>
@@ -286,25 +286,25 @@ export function ListProductForm({ categories }: { categories: Category[] }) {
       </div>
 
       {/* Pricing & Auction Section */}
-      <div className="border-t border-white/10 pt-8 space-y-6">
+      <div className="border-t border-[#14120e]/15 pt-8 space-y-6">
         <div className={monoLabelClass}>04 · Sale Format</div>
-        <div className="p-5 rounded-[22px] border border-white/10 bg-white/[0.04] space-y-4">
+        <div className="p-5 border border-[#14120e]/15 space-y-4">
         <div className="flex items-center justify-between gap-5">
           <div>
-            <h3 className="text-[16px] font-semibold text-white">{isAuction ? 'Auction' : 'Fixed price'}</h3>
-            <p className="text-[13px] text-white/55 mt-1">
+            <h3 className="text-[16px] font-semibold text-[#14120e]">{isAuction ? 'Auction' : 'Fixed price'}</h3>
+            <p className="text-[13px] text-[#14120e]/55 mt-1">
               {isAuction ? 'Buyers place offers; highest offer above your minimum wins at the deadline.' : 'One price, first buyer to message you takes it.'}
             </p>
           </div>
           <button
             type="button"
             onClick={() => setIsAuction(!isAuction)}
-            className="flex-none w-[150px] p-[5px] border border-white/10 rounded-full bg-black/40 flex gap-1 cursor-pointer"
+            className="flex-none w-[150px] border border-[#14120e] flex cursor-pointer font-mono text-[11px] tracking-[0.12em] uppercase"
           >
-            <span className={`flex-1 py-2 rounded-full text-xs font-semibold text-center transition-colors ${!isAuction ? 'text-white bg-gradient-to-r from-indigo-600 to-purple-600' : 'text-white/60'}`}>
+            <span className={`flex-1 py-2.5 text-center transition-colors ${!isAuction ? 'text-[#efe9dc] bg-[#14120e]' : 'text-[#14120e]/60'}`}>
               Fixed
             </span>
-            <span className={`flex-1 py-2 rounded-full text-xs font-semibold text-center transition-colors ${isAuction ? 'text-white bg-gradient-to-r from-violet-700 to-purple-600' : 'text-white/60'}`}>
+            <span className={`flex-1 py-2.5 text-center transition-colors border-l border-[#14120e] ${isAuction ? 'text-white bg-[#d93c14]' : 'text-[#14120e]/60'}`}>
               Auction
             </span>
           </button>
@@ -313,10 +313,10 @@ export function ListProductForm({ categories }: { categories: Category[] }) {
         <AnimatePresence mode="wait">
           {!isAuction ? (
             <motion.div key="fixed" initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: 'auto' }} exit={{ opacity: 0, height: 0 }} className="space-y-2 max-w-[280px]">
-              <label className="text-[12.5px] text-white/60 ml-1">Price (USD)</label>
+              <label className="text-[12.5px] text-[#14120e]/60 ml-1">Price (USD)</label>
               <div className="relative">
                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                  <DollarSign className="h-5 w-5 text-white/35" />
+                  <DollarSign className="h-5 w-5 text-[#14120e]/35" />
                 </div>
                 <input name="price" type="number" step="0.01" min="0.01" required className={`${inputClass} pl-10 pr-3 py-3 text-sm`} placeholder="0.00" />
               </div>
@@ -324,32 +324,32 @@ export function ListProductForm({ categories }: { categories: Category[] }) {
           ) : (
             <motion.div key="auction" initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: 'auto' }} exit={{ opacity: 0, height: 0 }} className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div className="space-y-2">
-                <label className="text-[12.5px] text-white/60 ml-1">Starting Price (USD)</label>
+                <label className="text-[12.5px] text-[#14120e]/60 ml-1">Starting Price (USD)</label>
                 <div className="relative">
                   <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                    <Gavel className="h-5 w-5 text-white/35" />
+                    <Gavel className="h-5 w-5 text-[#14120e]/35" />
                   </div>
                   <input name="price" type="number" step="0.01" min="0.01" required className={`${inputClass} pl-10 pr-3 py-3 text-sm`} placeholder="0.00" />
                 </div>
               </div>
               <div className="space-y-2">
-                <label className="text-[12.5px] text-white/60 ml-1">Minimum Accepted Price (USD)</label>
+                <label className="text-[12.5px] text-[#14120e]/60 ml-1">Minimum Accepted Price (USD)</label>
                 <div className="relative">
                   <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                    <DollarSign className="h-5 w-5 text-white/35" />
+                    <DollarSign className="h-5 w-5 text-[#14120e]/35" />
                   </div>
                   <input name="minimum_price" type="number" step="0.01" min="0.01" required className={`${inputClass} pl-10 pr-3 py-3 text-sm`} placeholder="Optional minimum" />
                 </div>
               </div>
               <div className="space-y-2 md:col-span-2">
-                <label className="text-[12.5px] text-white/60 ml-1">Auction Deadline</label>
+                <label className="text-[12.5px] text-[#14120e]/60 ml-1">Auction Deadline</label>
                 <div className="relative">
                   <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                    <Calendar className="h-5 w-5 text-white/35" />
+                    <Calendar className="h-5 w-5 text-[#14120e]/35" />
                   </div>
-                  <input name="auction_deadline" type="datetime-local" required className={`${inputClass} pl-10 pr-3 py-3 text-sm [&::-webkit-calendar-picker-indicator]:invert`} />
+                  <input name="auction_deadline" type="datetime-local" required className={`${inputClass} pl-10 pr-3 py-3 text-sm`} />
                 </div>
-                <p className="text-xs text-white/45">We close the auction automatically at the deadline and award it to the highest offer above your minimum.</p>
+                <p className="text-xs text-[#14120e]/45">We close the auction automatically at the deadline and award it to the highest offer above your minimum.</p>
               </div>
             </motion.div>
           )}
@@ -359,7 +359,6 @@ export function ListProductForm({ categories }: { categories: Category[] }) {
 
       <div className="flex items-center gap-3">
         <motion.button
-          whileHover={{ scale: 1.01 }}
           whileTap={{ scale: 0.99 }}
           type="submit"
           disabled={isSubmitting}

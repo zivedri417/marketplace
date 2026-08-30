@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="design_doc_mode" content="canvas">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Instrument+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; }
+  body { margin: 0; background: #12110e; color: #14120e; font-family: 'Instrument Sans', system-ui, sans-serif; -webkit-font-smoothing: antialiased; }
+  a { color: #d93c14; text-decoration: none; }
+  a:hover { color: #14120e; }
+  @keyframes blink { 0%,100% { opacity: 1 } 50% { opacity: .2 } }
+</style>
+</helmet>
+
+<div style="padding:88px 96px 160px;display:flex;flex-direction:column;gap:104px;min-width:1700px">
+
+  <div style="max-width:900px;display:flex;flex-direction:column;gap:20px;color:#efe9dc">
+    <span style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.18em;text-transform:uppercase;color:rgba(239,233,220,0.5)">direction b · lot house</span>
+    <h1 style="margin:0;font-family:'Instrument Serif',serif;font-size:76px;line-height:0.95;font-weight:400;letter-spacing:-0.02em">A catalogue, not a feed.</h1>
+    <p style="margin:0;font-size:17px;line-height:1.6;color:rgba(239,233,220,0.62);max-width:640px;text-wrap:pretty">Same product, opposite instincts: warm paper instead of near-black, hairlines instead of glass cards, square corners instead of pills, one editorial serif carrying the voice — and a single hot vermilion that <em style="font-style:italic">only</em> ever means “the clock is running”. Every listing is a lot with a number.</p>
+    <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:6px;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.16em;text-transform:uppercase">
+      <span style="padding:8px 13px;background:#efe9dc;color:#14120e">#EFE9DC paper</span>
+      <span style="padding:8px 13px;background:#14120e;color:#efe9dc;border:1px solid rgba(239,233,220,0.25)">#14120E ink</span>
+      <span style="padding:8px 13px;background:#d93c14;color:#fff">#D93C14 live</span>
+      <span style="padding:8px 13px;border:1px solid rgba(239,233,220,0.3);color:rgba(239,233,220,0.7)">Instrument Serif / Sans / Plex Mono</span>
+    </div>
+  </div>
+
+  <!-- ══ B1 · CATALOGUE ══ -->
+  <div style="display:flex;flex-direction:column;gap:22px">
+    <div style="display:flex;align-items:baseline;gap:14px;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.18em;text-transform:uppercase;color:rgba(239,233,220,0.5)">
+      <span>b1 · catalogue</span><span style="color:rgba(239,233,220,0.28);letter-spacing:0.1em;text-transform:none;font-size:12px">/ — nav, live rail, lot grid</span>
+    </div>
+
+    <div data-screen-label="Catalogue" style="width:1440px;background:#efe9dc;position:relative;overflow:hidden">
+      <div style="display:flex;align-items:stretch;border-bottom:1px solid #14120e">
+        <div style="padding:20px 28px;border-right:1px solid #14120e;display:flex;align-items:center">
+          <span style="font-family:'Instrument Serif',serif;font-size:27px;line-height:1;letter-spacing:-0.02em">Lot<span style="font-style:italic">house</span></span>
+        </div>
+        <div style="display:flex;align-items:center;gap:26px;padding:0 28px;border-right:1px solid #14120e;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.14em;text-transform:uppercase">
+          <span>Live now</span>
+          <span style="color:rgba(20,18,14,0.5)">Buy it now</span>
+          <span style="color:rgba(20,18,14,0.5)">Departments ↓</span>
+        </div>
+        <div style="flex:1;display:flex;align-items:center;gap:12px;padding:0 24px;border-right:1px solid #14120e">
+          <span style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.14em;text-transform:uppercase;color:rgba(20,18,14,0.45)">Search</span>
+          <span style="flex:1;font-family:'Instrument Serif',serif;font-size:21px;color:rgba(20,18,14,0.4)">items or people…</span>
+        </div>
+        <div style="display:flex;align-items:center;padding:0 26px;border-right:1px solid #14120e;background:#14120e;color:#efe9dc;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.14em;text-transform:uppercase">Consign an item</div>
+        <div style="width:64px;display:flex;align-items:center;justify-content:center;font-family:'IBM Plex Mono',monospace;font-size:13px">D</div>
+      </div>
+
+      <div style="display:flex;align-items:center;gap:18px;padding:11px 28px;background:#d93c14;color:#fff;border-bottom:1px solid #14120e">
+        <span style="display:flex;align-items:center;gap:8px;font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:0.18em;text-transform:uppercase"><span style="width:6px;height:6px;background:#fff;border-radius:50%;animation:blink 1.4s ease-in-out infinite"></span>closing today</span>
+        <span style="flex:1;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.06em">LOT 041 Fender Jazzmaster · 03h 22m 08s &nbsp;&nbsp;/&nbsp;&nbsp; LOT 018 Eames LCW · 45m 12s &nbsp;&nbsp;/&nbsp;&nbsp; LOT 052 Braun ET66 · 01d 04h</span>
+        <span style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:0.18em;text-transform:uppercase">6 live →</span>
+      </div>
+
+      <div style="display:grid;grid-template-columns:1fr 420px;border-bottom:1px solid #14120e">
+        <div style="padding:56px 40px 48px 28px;display:flex;flex-direction:column;gap:22px;border-right:1px solid #14120e">
+          <span style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.18em;text-transform:uppercase;color:rgba(20,18,14,0.5)">Sale 06 · closing through September</span>
+          <h2 style="margin:0;font-family:'Instrument Serif',serif;font-size:88px;line-height:0.9;font-weight:400;letter-spacing:-0.03em;max-width:12ch">Things worth bidding on.</h2>
+          <p style="margin:0;font-size:16px;line-height:1.6;color:rgba(20,18,14,0.62);max-width:44ch;text-wrap:pretty">Two hundred and eleven lots from people, not warehouses. Bid before the clock, or buy outright.</p>
+          <div style="display:flex;gap:0;margin-top:10px;border:1px solid #14120e;align-self:flex-start;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.14em;text-transform:uppercase">
+            <span style="padding:13px 22px;background:#14120e;color:#efe9dc">All 211</span>
+            <span style="padding:13px 22px;border-left:1px solid #14120e">Live 6</span>
+            <span style="padding:13px 22px;border-left:1px solid #14120e">Buy now</span>
+            <span style="padding:13px 22px;border-left:1px solid #14120e">Newest</span>
+          </div>
+        </div>
+        <div style="position:relative;background:repeating-linear-gradient(135deg,rgba(20,18,14,0.075) 0 10px,rgba(20,18,14,0.025) 10px 20px);display:flex;align-items:flex-end;padding:24px">
+          <span style="position:absolute;top:24px;left:24px;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.16em;text-transform:uppercase;color:rgba(20,18,14,0.4)">FEATURE IMAGE · 3:4 · lot 041</span>
+          <div style="background:#14120e;color:#efe9dc;padding:16px 20px;display:flex;flex-direction:column;gap:6px;max-width:280px">
+            <span style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.16em;text-transform:uppercase;color:#f0a98f">Lot 041 · closing 21:30</span>
+            <span style="font-family:'Instrument Serif',serif;font-size:26px;line-height:1.05">Fender Jazzmaster, sunburst</span>
+            <span style="font-family:'IBM Plex Mono',monospace;font-size:12px;color:#d93c14">03h 22m 08s</span>
+          </div>
+        </div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:repeat(4,1fr)">
+
+        <div style="border-right:1px solid #14120e;border-bottom:1px solid #14120e;padding:0 0 20px">
+          <div style="position:relative;aspect-ratio:4/5;background:repeating-linear-gradient(135deg,rgba(20,18,14,0.075) 0 9px,rgba(20,18,14,0.02) 9px 18px);border-bottom:1px solid #14120e;display:flex;align-items:center;justify-content:center">
+            <span style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:0.16em;color:rgba(20,18,14,0.35)">PRODUCT SHOT</span>
+            <span style="position:absolute;top:0;left:0;background:#d93c14;color:#fff;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.14em;padding:6px 10px">LOT 007</span>
+            <span style="position:absolute;bottom:0;left:0;right:0;background:#14120e;color:#efe9dc;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.08em;padding:7px 10px;display:flex;justify-content:space-between"><span>BIDDING</span><span style="color:#f0a98f">05d 11h</span></span>
+          </div>
+          <div style="padding:18px 20px 0;display:flex;flex-direction:column;gap:10px">
+            <span style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:0.16em;text-transform:uppercase;color:rgba(20,18,14,0.45)">Cameras</span>
+            <h3 style="margin:0;font-family:'Instrument Serif',serif;font-size:25px;line-height:1.06;font-weight:400">Leica M6 body, 1987</h3>
+            <div style="display:flex;align-items:baseline;justify-content:space-between;border-top:1px solid rgba(20,18,14,0.18);padding-top:11px;margin-top:2px">
+              <div style="display:flex;flex-direction:column;gap:2px">
+                <span style="font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:0.16em;text-transform:uppercase;color:rgba(20,18,14,0.45)">Current bid</span>
+                <span style="font-family:'IBM Plex Mono',monospace;font-size:22px;letter-spacing:-0.01em">$2,150</span>
+              </div>
+              <span style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.1em;color:rgba(20,18,14,0.5)">3 BIDS</span>
+            </div>
+          </div>
+        </div>
+
+        <div style="border-right:1px solid #14120e;border-bottom:1px solid #14120e;padding:0 0 20px">
+          <div style="position:relative;aspect-ratio:4/5;background:repeating-linear-gradient(135deg,rgba(20,18,14,0.075) 0 9px,rgba(20,18,14,0.02) 9px 18px);border-bottom:1px solid #14120e;display:flex;align-items:center;justify-content:center">
+            <span style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:0.16em;color:rgba(20,18,14,0.35)">PRODUCT SHOT</span>
+            <span style="position:absolute;top:0;left:0;background:#d93c14;color:#fff;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.14em;padding:6px 10px">LOT 041</span>
+            <span style="position:absolute;bottom:0;left:0;right:0;background:#d93c14;color:#fff;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.08em;padding:7px 10px;display:flex;justify-content:space-between"><span>CLOSING</span><span>03h 22m</span></span>
+          </div>
+          <div style="padding:18px 20px 0;display:flex;flex-direction:column;gap:10px">
+            <span style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:0.16em;text-transform:uppercase;color:rgba(20,18,14,0.45)">Instruments</span>
+            <h3 style="margin:0;font-family:'Instrument Serif',serif;font-size:25px;line-height:1.06;font-weight:400">Fender Jazzmaster, sunburst</h3>
+            <div style="display:flex;align-items:baseline;justify-content:space-between;border-top:1px solid rgba(20,18,14,0.18);padding-top:11px;margin-top:2px">
+              <div style="display:flex;flex-direction:column;gap:2px">
+                <span style="font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:0.16em;text-transform:uppercase;color:#d93c14">Current bid</span>
+                <span style="font-family:'IBM Plex Mono',monospace;font-size:22px;letter-spacing:-0.01em;color:#d93c14">$1,020</span>
+              </div>
+              <span style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.1em;color:rgba(20,18,14,0.5)">7 BIDS</span>
+            </div>
+          </div>
+        </div>
+
+        <div style="border-right:1px solid #14120e;border-bottom:1px solid #14120e;padding:0 0 20px">
+          <div style="position:relative;aspect-ratio:4/5;background:repeating-linear-gradient(135deg,rgba(20,18,14,0.075) 0 9px,rgba(20,18,14,0.02) 9px 18px);border-bottom:1px solid #14120e;display:flex;align-items:center;justify-content:center">
+            <span style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:0.16em;color:rgba(20,18,14,0.35)">PRODUCT SHOT</span>
+            <span style="position:absolute;top:0;left:0;background:#14120e;color:#efe9dc;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.14em;padding:6px 10px">LOT 012</span>
+          </div>
+          <div style="padding:18px 20px 0;display:flex;flex-direction:column;gap:10px">
+            <span style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:0.16em;text-transform:uppercase;color:rgba(20,18,14,0.45)">Furniture</span>
+            <h3 style="margin:0;font-family:'Instrument Serif',serif;font-size:25px;line-height:1.06;font-weight:400">Danish teak sideboard</h3>
+            <div style="display:flex;align-items:baseline;justify-content:space-between;border-top:1px solid rgba(20,18,14,0.18);padding-top:11px;margin-top:2px">
+              <div style="display:flex;flex-direction:column;gap:2px">
+                <span style="font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:0.16em;text-transform:uppercase;color:rgba(20,18,14,0.45)">Buy it now</span>
+                <span style="font-family:'IBM Plex Mono',monospace;font-size:22px;letter-spacing:-0.01em">$780</span>
+              </div>
+              <span style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.1em;color:rgba(20,18,14,0.5)">TEL AVIV</span>
+            </div>
+          </div>
+        </div>
+
+        <div style="border-bottom:1px solid #14120e;padding:0 0 20px">
+          <div style="position:relative;aspect-ratio:4/5;background:repeating-linear-gradient(135deg,rgba(20,18,14,0.055) 0 9px,rgba(20,18,14,0.015) 9px 18px);border-bottom:1px solid #14120e;display:flex;align-items:center;justify-content:center">
+            <span style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:0.16em;color:rgba(20,18,14,0.3)">PRODUCT SHOT</span>
+            <span style="position:absolute;top:0;left:0;background:#14120e;color:#efe9dc;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.14em;padding:6px 10px">LOT 033</span>
+            <span style="position:absolute;top:50%;left:0;right:0;transform:translateY(-50%) rotate(-6deg);text-align:center;font-family:'IBM Plex Mono',monospace;font-size:13px;letter-spacing:0.3em;color:rgba(20,18,14,0.5);border-top:1.5px solid rgba(20,18,14,0.5);border-bottom:1.5px solid rgba(20,18,14,0.5);padding:7px 0">HAMMER FELL</span>
+          </div>
+          <div style="padding:18px 20px 0;display:flex;flex-direction:column;gap:10px">
+            <span style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:0.16em;text-transform:uppercase;color:rgba(20,18,14,0.45)">Bicycles</span>
+            <h3 style="margin:0;font-family:'Instrument Serif',serif;font-size:25px;line-height:1.06;font-weight:400;color:rgba(20,18,14,0.65)">Colnago Master, 56cm</h3>
+            <div style="display:flex;align-items:baseline;justify-content:space-between;border-top:1px solid rgba(20,18,14,0.18);padding-top:11px;margin-top:2px">
+              <div style="display:flex;flex-direction:column;gap:2px">
+                <span style="font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:0.16em;text-transform:uppercase;color:rgba(20,18,14,0.45)">Final bid</span>
+                <span style="font-family:'IBM Plex Mono',monospace;font-size:22px;color:rgba(20,18,14,0.6)">$1,640</span>
+              </div>
+              <span style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.1em;color:rgba(20,18,14,0.5)">AWAITING SELLER</span>
+            </div>
+          </div>
+        </div>
+
+        <div style="border-right:1px solid #14120e;padding:0 0 20px">
+          <div style="position:relative;aspect-ratio:4/5;background:repeating-linear-gradient(135deg,rgba(20,18,14,0.075) 0 9px,rgba(20,18,14,0.02) 9px 18px);border-bottom:1px solid #14120e;display:flex;align-items:center;justify-content:center">
+            <span style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:0.16em;color:rgba(20,18,14,0.35)">PRODUCT SHOT</span>
+            <span style="position:absolute;top:0;left:0;background:#d93c14;color:#fff;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.14em;padding:6px 10px">LOT 018</span>
+            <span style="position:absolute;bottom:0;left:0;right:0;background:#d93c14;color:#fff;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.08em;padding:7px 10px;display:flex;justify-content:space-between"><span>CLOSING</span><span>45m 12s</span></span>
+          </div>
+          <div style="padding:18px 20px 0;display:flex;flex-direction:column;gap:10px">
+            <span style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:0.16em;text-transform:uppercase;color:rgba(20,18,14,0.45)">Furniture</span>
+            <h3 style="margin:0;font-family:'Instrument Serif',serif;font-size:25px;line-height:1.06;font-weight:400">Eames LCW, walnut</h3>
+            <div style="display:flex;align-items:baseline;justify-content:space-between;border-top:1px solid rgba(20,18,14,0.18);padding-top:11px;margin-top:2px">
+              <div style="display:flex;flex-direction:column;gap:2px">
+                <span style="font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:0.16em;text-transform:uppercase;color:#d93c14">Current bid</span>
+                <span style="font-family:'IBM Plex Mono',monospace;font-size:22px;color:#d93c14">$2,480</span>
+              </div>
+              <span style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.1em;color:rgba(20,18,14,0.5)">12 BIDS</span>
+            </div>
+          </div>
+        </div>
+
+        <div style="border-right:1px solid #14120e;padding:0 0 20px">
+          <div style="position:relative;aspect-ratio:4/5;background:repeating-linear-gradient(135deg,rgba(20,18,14,0.055) 0 9px,rgba(20,18,14,0.015) 9px 18px);border-bottom:1px solid #14120e;display:flex;align-items:center;justify-content:center">
+            <span style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:0.16em;color:rgba(20,18,14,0.3)">PRODUCT SHOT</span>
+            <span style="position:absolute;top:0;left:0;background:#14120e;color:#efe9dc;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.14em;padding:6px 10px">LOT 029</span>
+            <span style="position:absolute;inset:0;background:rgba(239,233,220,0.55)"></span>
+            <span style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%) rotate(-6deg);font-family:'IBM Plex Mono',monospace;font-size:15px;letter-spacing:0.28em;color:#d93c14;border:2px solid #d93c14;padding:9px 16px">SOLD</span>
+          </div>
+          <div style="padding:18px 20px 0;display:flex;flex-direction:column;gap:10px">
+            <span style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:0.16em;text-transform:uppercase;color:rgba(20,18,14,0.45)">Prints</span>
+            <h3 style="margin:0;font-family:'Instrument Serif',serif;font-size:25px;line-height:1.06;font-weight:400;color:rgba(20,18,14,0.55)">Risograph set of three</h3>
+            <div style="display:flex;align-items:baseline;justify-content:space-between;border-top:1px solid rgba(20,18,14,0.18);padding-top:11px;margin-top:2px">
+              <div style="display:flex;flex-direction:column;gap:2px">
+                <span style="font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:0.16em;text-transform:uppercase;color:rgba(20,18,14,0.45)">Sold for</span>
+                <span style="font-family:'IBM Plex Mono',monospace;font-size:22px;color:rgba(20,18,14,0.55)">$210</span>
+              </div>
+              <span style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.1em;color:rgba(20,18,14,0.45)">HAIFA</span>
+            </div>
+          </div>
+        </div>
+
+        <div style="border-right:1px solid #14120e;padding:0 0 20px">
+          <div style="position:relative;aspect-ratio:4/5;background:repeating-linear-gradient(135deg,rgba(20,18,14,0.075) 0 9px,rgba(20,18,14,0.02) 9px 18px);border-bottom:1px solid #14120e;display:flex;align-items:center;justify-content:center">
+            <span style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:0.16em;color:rgba(20,18,14,0.35)">PRODUCT SHOT</span>
+            <span style="position:absolute;top:0;left:0;background:#d93c14;color:#fff;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.14em;padding:6px 10px">LOT 052</span>
+            <span style="position:absolute;bottom:0;left:0;right:0;background:#14120e;color:#efe9dc;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.08em;padding:7px 10px;display:flex;justify-content:space-between"><span>BIDDING</span><span style="color:#f0a98f">01d 04h</span></span>
+          </div>
+          <div style="padding:18px 20px 0;display:flex;flex-direction:column;gap:10px">
+            <span style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:0.16em;text-transform:uppercase;color:rgba(20,18,14,0.45)">Objects</span>
+            <h3 style="margin:0;font-family:'Instrument Serif',serif;font-size:25px;line-height:1.06;font-weight:400">Braun ET66 calculator</h3>
+            <div style="display:flex;align-items:baseline;justify-content:space-between;border-top:1px solid rgba(20,18,14,0.18);padding-top:11px;margin-top:2px">
+              <div style="display:flex;flex-direction:column;gap:2px">
+                <span style="font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:0.16em;text-transform:uppercase;color:rgba(20,18,14,0.45)">Estimate from</span>
+                <span style="font-family:'IBM Plex Mono',monospace;font-size:22px">$95</span>
+              </div>
+              <span style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.1em;color:rgba(20,18,14,0.5)">NO BIDS</span>
+            </div>
+          </div>
+        </div>
+
+        <div style="padding:0 0 20px">
+          <div style="position:relative;aspect-ratio:4/5;background:repeating-linear-gradient(135deg,rgba(20,18,14,0.075) 0 9px,rgba(20,18,14,0.02) 9px 18px);border-bottom:1px solid #14120e;display:flex;align-items:center;justify-content:center">
+            <span style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:0.16em;color:rgba(20,18,14,0.35)">PRODUCT SHOT</span>
+            <span style="position:absolute;top:0;left:0;background:#14120e;color:#efe9dc;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.14em;padding:6px 10px">LOT 061</span>
+          </div>
+          <div style="padding:18px 20px 0;display:flex;flex-direction:column;gap:10px">
+            <span style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:0.16em;text-transform:uppercase;color:rgba(20,18,14,0.45)">Audio</span>
+            <h3 style="margin:0;font-family:'Instrument Serif',serif;font-size:25px;line-height:1.06;font-weight:400">Technics SL-1200 MK2</h3>
+            <div style="display:flex;align-items:baseline;justify-content:space-between;border-top:1px solid rgba(20,18,14,0.18);padding-top:11px;margin-top:2px">
+              <div style="display:flex;flex-direction:column;gap:2px">
+                <span style="font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:0.16em;text-transform:uppercase;color:rgba(20,18,14,0.45)">Buy it now</span>
+                <span style="font-family:'IBM Plex Mono',monospace;font-size:22px">$1,240</span>
+              </div>
+              <span style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.1em;color:rgba(20,18,14,0.5)">JAFFA</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ B2 · LOT PAGE ══ -->
+  <div style="display:flex;flex-direction:column;gap:22px">
+    <div style="display:flex;align-items:baseline;gap:14px;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.18em;text-transform:uppercase;color:rgba(239,233,220,0.5)">
+      <span>b2 · lot page</span><span style="color:rgba(239,233,220,0.28);letter-spacing:0.1em;text-transform:none;font-size:12px">live auction · bid rail is ink, clock is vermilion</span>
+    </div>
+    <div data-screen-label="Lot page · live" style="width:1440px;background:#efe9dc;position:relative">
+      <div style="display:flex;align-items:center;justify-content:space-between;padding:16px 28px;border-bottom:1px solid #14120e;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.14em;text-transform:uppercase">
+        <span>← Sale 06 · Cameras</span>
+        <span style="font-family:'Instrument Serif',serif;font-size:24px;letter-spacing:-0.02em;text-transform:none">Lot<span style="font-style:italic">house</span></span>
+        <span style="color:rgba(20,18,14,0.5)">Lot 007 of 211 &nbsp;·&nbsp; next →</span>
+      </div>
+
+      <div style="display:grid;grid-template-columns:1fr 520px">
+        <div style="border-right:1px solid #14120e">
+          <div style="position:relative;aspect-ratio:1/1;background:repeating-linear-gradient(135deg,rgba(20,18,14,0.075) 0 11px,rgba(20,18,14,0.02) 11px 22px);border-bottom:1px solid #14120e;display:flex;align-items:center;justify-content:center">
+            <span style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.16em;color:rgba(20,18,14,0.35)">PRIMARY IMAGE · 1:1</span>
+            <span style="position:absolute;top:0;left:0;background:#d93c14;color:#fff;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.16em;padding:9px 14px">LOT 007</span>
+          </div>
+          <div style="display:grid;grid-template-columns:repeat(4,1fr);border-bottom:1px solid #14120e">
+            <span style="aspect-ratio:1/1;border-right:1px solid #14120e;background:repeating-linear-gradient(135deg,rgba(20,18,14,0.09) 0 8px,rgba(20,18,14,0.03) 8px 16px);box-shadow:inset 0 0 0 3px #d93c14"></span>
+            <span style="aspect-ratio:1/1;border-right:1px solid #14120e;background:repeating-linear-gradient(135deg,rgba(20,18,14,0.06) 0 8px,rgba(20,18,14,0.02) 8px 16px)"></span>
+            <span style="aspect-ratio:1/1;border-right:1px solid #14120e;background:repeating-linear-gradient(135deg,rgba(20,18,14,0.06) 0 8px,rgba(20,18,14,0.02) 8px 16px)"></span>
+            <span style="aspect-ratio:1/1;background:repeating-linear-gradient(135deg,rgba(20,18,14,0.06) 0 8px,rgba(20,18,14,0.02) 8px 16px)"></span>
+          </div>
+          <div style="padding:34px 40px 40px 28px;display:grid;grid-template-columns:1fr 1fr;gap:40px">
+            <div style="display:flex;flex-direction:column;gap:12px">
+              <span style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.18em;text-transform:uppercase;color:rgba(20,18,14,0.5);border-bottom:1px solid #14120e;padding-bottom:9px">Condition report</span>
+              <p style="margin:0;font-size:15.5px;line-height:1.7;color:rgba(20,18,14,0.72);text-wrap:pretty">Serviced last year by a Leica-certified technician: new light seals, calibrated meter, smooth shutter across all speeds. Brassing on the bottom plate, glass clean with no fungus or separation. Ships with the original strap and a spare battery door.</p>
+              <div style="display:flex;gap:26px;margin-top:6px;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:rgba(20,18,14,0.5)">
+                <span>Tel Aviv, IL</span><span>Consigned Aug 22</span>
+              </div>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:12px">
+              <span style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.18em;text-transform:uppercase;color:rgba(20,18,14,0.5);border-bottom:1px solid #14120e;padding-bottom:9px">Bid history</span>
+              <div style="display:flex;justify-content:space-between;font-family:'IBM Plex Mono',monospace;font-size:12px;padding:9px 0;border-bottom:1px solid rgba(20,18,14,0.15)"><span>roni.k</span><span style="color:rgba(20,18,14,0.5)">AUG 28 14:02</span><span style="color:#d93c14">$2,150</span></div>
+              <div style="display:flex;justify-content:space-between;font-family:'IBM Plex Mono',monospace;font-size:12px;padding:9px 0;border-bottom:1px solid rgba(20,18,14,0.15)"><span>m6_collector</span><span style="color:rgba(20,18,14,0.5)">AUG 27 21:40</span><span>$2,000</span></div>
+              <div style="display:flex;justify-content:space-between;font-family:'IBM Plex Mono',monospace;font-size:12px;padding:9px 0;border-bottom:1px solid rgba(20,18,14,0.15)"><span>avi_shoots</span><span style="color:rgba(20,18,14,0.5)">AUG 26 09:15</span><span>$1,820</span></div>
+              <div style="display:flex;justify-content:space-between;font-family:'IBM Plex Mono',monospace;font-size:12px;padding:9px 0"><span style="color:rgba(20,18,14,0.5)">Opening</span><span style="color:rgba(20,18,14,0.5)">AUG 22 10:00</span><span style="color:rgba(20,18,14,0.5)">$1,600</span></div>
+            </div>
+          </div>
+        </div>
+
+        <div style="display:flex;flex-direction:column">
+          <div style="padding:40px 32px 30px;border-bottom:1px solid #14120e;display:flex;flex-direction:column;gap:16px">
+            <span style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.18em;text-transform:uppercase;color:rgba(20,18,14,0.5)">Cameras · 35mm rangefinder</span>
+            <h2 style="margin:0;font-family:'Instrument Serif',serif;font-size:52px;line-height:0.98;font-weight:400;letter-spacing:-0.025em">Leica M6 body, 1987 <span style="font-style:italic">original chrome</span></h2>
+          </div>
+
+          <div style="background:#14120e;color:#efe9dc;padding:30px 32px;display:flex;flex-direction:column;gap:26px">
+            <div style="display:flex;justify-content:space-between;gap:24px">
+              <div style="display:flex;flex-direction:column;gap:7px">
+                <span style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.18em;text-transform:uppercase;color:rgba(239,233,220,0.5)">Current bid</span>
+                <span style="font-family:'IBM Plex Mono',monospace;font-size:46px;line-height:1;letter-spacing:-0.02em">$2,150</span>
+                <span style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:0.1em;color:rgba(239,233,220,0.5)">3 BIDS · OPENED AT $1,600</span>
+              </div>
+              <div style="display:flex;flex-direction:column;gap:7px;align-items:flex-end;text-align:right">
+                <span style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.18em;text-transform:uppercase;color:#f0a98f">Hammer falls in</span>
+                <span style="font-family:'IBM Plex Mono',monospace;font-size:30px;line-height:1;color:#d93c14">03:22:08</span>
+                <span style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:0.1em;color:rgba(239,233,220,0.5)">SAT AUG 29 · 21:30 IDT</span>
+              </div>
+            </div>
+            <div style="display:flex;border:1px solid rgba(239,233,220,0.35)">
+              <div style="flex:1;display:flex;align-items:center;gap:9px;padding:0 20px;height:60px">
+                <span style="font-family:'IBM Plex Mono',monospace;font-size:17px;color:rgba(239,233,220,0.5)">$</span>
+                <span style="font-family:'IBM Plex Mono',monospace;font-size:19px;color:#efe9dc">2,200</span>
+              </div>
+              <span style="display:flex;align-items:center;padding:0 30px;background:#d93c14;color:#fff;font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:0.18em;text-transform:uppercase">Place bid</span>
+            </div>
+            <span style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:rgba(239,233,220,0.45);margin-top:-14px">Minimum increment · $50 · next valid bid $2,200</span>
+          </div>
+
+          <div style="padding:26px 32px;border-bottom:1px solid #14120e;display:flex;align-items:center;gap:18px">
+            <span style="width:52px;height:52px;border:1px solid #14120e;display:flex;align-items:center;justify-content:center;font-family:'Instrument Serif',serif;font-size:22px;flex:none">L</span>
+            <div style="flex:1;display:flex;flex-direction:column;gap:5px">
+              <span style="font-family:'Instrument Serif',serif;font-size:23px;line-height:1">leica_lena</span>
+              <span style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:0.12em;color:rgba(20,18,14,0.6)"><span style="color:#d93c14">★★★★★</span> 4.8 · 27 REVIEWS</span>
+            </div>
+            <span style="border:1px solid #14120e;padding:12px 18px;font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:0.16em;text-transform:uppercase">Message</span>
+          </div>
+
+          <div style="padding:26px 32px;display:flex;flex-direction:column;gap:14px">
+            <span style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.18em;text-transform:uppercase;color:rgba(20,18,14,0.5)">After the hammer</span>
+            <p style="margin:0;font-size:14.5px;line-height:1.65;color:rgba(20,18,14,0.66)">At 21:30 the lot closes itself. The winner is emailed and a conversation opens automatically. The lot stays listed as <strong style="font-weight:600">Hammer fell</strong> until the seller marks it sold — sold lots leave the catalogue after 30 days.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ B3 · STATES + MOBILE ══ -->
+  <div style="display:flex;flex-direction:column;gap:22px">
+    <div style="display:flex;align-items:baseline;gap:14px;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.18em;text-transform:uppercase;color:rgba(239,233,220,0.5)">
+      <span>b3 · states &amp; mobile</span><span style="color:rgba(239,233,220,0.28);letter-spacing:0.1em;text-transform:none;font-size:12px">hammer fell / sold · 390pt</span>
+    </div>
+    <div style="display:flex;gap:32px;align-items:flex-start">
+
+      <div data-screen-label="Lot · hammer fell" style="width:520px;background:#efe9dc">
+        <div style="padding:14px 22px;border-bottom:1px solid #14120e;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.18em;text-transform:uppercase;color:rgba(20,18,14,0.55)">State · hammer fell (not yet sold)</div>
+        <div style="position:relative;height:170px;background:repeating-linear-gradient(135deg,rgba(20,18,14,0.06) 0 10px,rgba(20,18,14,0.02) 10px 20px);border-bottom:1px solid #14120e">
+          <span style="position:absolute;top:0;left:0;background:#14120e;color:#efe9dc;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.14em;padding:6px 10px">LOT 033</span>
+          <span style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%) rotate(-5deg);font-family:'IBM Plex Mono',monospace;font-size:13px;letter-spacing:0.28em;color:rgba(20,18,14,0.55);border-top:1.5px solid rgba(20,18,14,0.55);border-bottom:1.5px solid rgba(20,18,14,0.55);padding:7px 0">HAMMER FELL</span>
+        </div>
+        <div style="padding:26px 24px;display:flex;flex-direction:column;gap:20px">
+          <h3 style="margin:0;font-family:'Instrument Serif',serif;font-size:34px;line-height:1;font-weight:400">Colnago Master, 56cm</h3>
+          <div style="border:1px solid #14120e;padding:20px;display:flex;align-items:flex-end;justify-content:space-between;gap:18px">
+            <div style="display:flex;flex-direction:column;gap:6px">
+              <span style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.18em;text-transform:uppercase;color:rgba(20,18,14,0.55)">Winning bid</span>
+              <span style="font-family:'IBM Plex Mono',monospace;font-size:34px;line-height:1">$1,640</span>
+              <span style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:0.1em;color:rgba(20,18,14,0.55)">RONI.K · CLOSED AUG 24 18:00</span>
+            </div>
+            <span style="width:44px;height:44px;border:1px solid #14120e;display:flex;align-items:center;justify-content:center;font-family:'Instrument Serif',serif;font-size:19px;flex:none">R</span>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:14px">
+            <span style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.18em;text-transform:uppercase;color:rgba(20,18,14,0.55)">Seller actions</span>
+            <div style="display:flex;gap:0;border:1px solid #14120e;align-self:flex-start;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.16em;text-transform:uppercase">
+              <span style="padding:14px 20px;background:#d93c14;color:#fff">Mark as sold</span>
+              <span style="padding:14px 20px;border-left:1px solid #14120e">Open conversation</span>
+            </div>
+            <span style="font-size:13px;line-height:1.55;color:rgba(20,18,14,0.55)">Confirm copy: “Sold lots leave the catalogue automatically after 30 days.”</span>
+          </div>
+        </div>
+      </div>
+
+      <div data-screen-label="Lot · sold" style="width:520px;background:#efe9dc">
+        <div style="padding:14px 22px;border-bottom:1px solid #14120e;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.18em;text-transform:uppercase;color:rgba(20,18,14,0.55)">State · sold</div>
+        <div style="position:relative;height:170px;background:repeating-linear-gradient(135deg,rgba(20,18,14,0.05) 0 10px,rgba(20,18,14,0.015) 10px 20px);border-bottom:1px solid #14120e">
+          <span style="position:absolute;inset:0;background:rgba(239,233,220,0.5)"></span>
+          <span style="position:absolute;top:0;left:0;background:#14120e;color:#efe9dc;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.14em;padding:6px 10px">LOT 029</span>
+          <span style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%) rotate(-5deg);font-family:'IBM Plex Mono',monospace;font-size:17px;letter-spacing:0.28em;color:#d93c14;border:2px solid #d93c14;padding:10px 18px">SOLD</span>
+        </div>
+        <div style="padding:26px 24px;display:flex;flex-direction:column;gap:20px">
+          <h3 style="margin:0;font-family:'Instrument Serif',serif;font-size:34px;line-height:1;font-weight:400;color:rgba(20,18,14,0.72)">Risograph set of three</h3>
+          <div style="display:flex;align-items:baseline;justify-content:space-between;border-top:1px solid #14120e;border-bottom:1px solid #14120e;padding:16px 0">
+            <span style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.18em;text-transform:uppercase;color:rgba(20,18,14,0.55)">Sold for</span>
+            <span style="font-family:'IBM Plex Mono',monospace;font-size:30px;color:rgba(20,18,14,0.7)">$210</span>
+          </div>
+          <p style="margin:0;font-size:14.5px;line-height:1.65;color:rgba(20,18,14,0.6)">Bidding and messages are closed. This lot leaves the catalogue 30 days after it was marked sold.</p>
+          <div style="border:1px solid #14120e;padding:18px;display:flex;align-items:center;gap:16px">
+            <span style="width:46px;height:46px;border:1px solid #14120e;display:flex;align-items:center;justify-content:center;font-family:'Instrument Serif',serif;font-size:19px;flex:none">S</span>
+            <div style="flex:1;display:flex;flex-direction:column;gap:4px">
+              <span style="font-family:'Instrument Serif',serif;font-size:21px;line-height:1">studio.noga</span>
+              <span style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.12em;color:rgba(20,18,14,0.6)"><span style="color:#d93c14">★★★★</span><span style="color:rgba(20,18,14,0.3)">★</span> 4.2 · 9 REVIEWS</span>
+            </div>
+            <span style="border:1px solid #14120e;padding:11px 16px;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.16em;text-transform:uppercase">Review</span>
+          </div>
+        </div>
+      </div>
+
+      <div data-screen-label="Mobile · catalogue" style="width:390px;background:#efe9dc">
+        <div style="display:flex;justify-content:space-between;padding:14px 18px 10px;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.08em;color:rgba(20,18,14,0.6)"><span>9:41</span><span>▮▮▮</span></div>
+        <div style="display:flex;align-items:center;justify-content:space-between;padding:6px 18px 14px;border-bottom:1px solid #14120e">
+          <span style="font-family:'Instrument Serif',serif;font-size:24px;letter-spacing:-0.02em">Lot<span style="font-style:italic">house</span></span>
+          <div style="display:flex;gap:0;border:1px solid #14120e;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.14em;text-transform:uppercase">
+            <span style="padding:12px 13px;border-right:1px solid #14120e">Search</span>
+            <span style="padding:12px 13px">Menu</span>
+          </div>
+        </div>
+        <div style="display:flex;align-items:center;gap:10px;padding:9px 18px;background:#d93c14;color:#fff;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.14em;text-transform:uppercase;border-bottom:1px solid #14120e">
+          <span style="width:6px;height:6px;background:#fff;border-radius:50%;animation:blink 1.4s ease-in-out infinite"></span>
+          <span style="flex:1">Lot 041 closing · 03h 22m</span><span>→</span>
+        </div>
+        <div style="padding:22px 18px 16px;border-bottom:1px solid #14120e">
+          <h3 style="margin:0;font-family:'Instrument Serif',serif;font-size:42px;line-height:0.94;font-weight:400;letter-spacing:-0.02em">Things worth bidding on.</h3>
+        </div>
+        <div style="display:flex;border-bottom:1px solid #14120e;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.14em;text-transform:uppercase">
+          <span style="flex:1;text-align:center;padding:14px 0;background:#14120e;color:#efe9dc">All</span>
+          <span style="flex:1;text-align:center;padding:14px 0;border-left:1px solid #14120e">Live 6</span>
+          <span style="flex:1;text-align:center;padding:14px 0;border-left:1px solid #14120e">Buy now</span>
+        </div>
+        <div style="border-bottom:1px solid #14120e">
+          <div style="position:relative;aspect-ratio:4/5;background:repeating-linear-gradient(135deg,rgba(20,18,14,0.075) 0 10px,rgba(20,18,14,0.02) 10px 20px);border-bottom:1px solid #14120e">
+            <span style="position:absolute;top:0;left:0;background:#d93c14;color:#fff;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.14em;padding:7px 11px">LOT 007</span>
+            <span style="position:absolute;bottom:0;left:0;right:0;background:#14120e;color:#efe9dc;font-family:'IBM Plex Mono',monospace;font-size:11px;padding:9px 12px;display:flex;justify-content:space-between"><span style="letter-spacing:0.14em">BIDDING</span><span style="color:#f0a98f">05d 11h</span></span>
+          </div>
+          <div style="padding:16px 18px 20px;display:flex;flex-direction:column;gap:9px">
+            <span style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:0.16em;text-transform:uppercase;color:rgba(20,18,14,0.5)">Cameras</span>
+            <h4 style="margin:0;font-family:'Instrument Serif',serif;font-size:28px;line-height:1.02;font-weight:400">Leica M6 body, 1987</h4>
+            <div style="display:flex;align-items:baseline;justify-content:space-between;border-top:1px solid rgba(20,18,14,0.18);padding-top:10px"><span style="font-family:'IBM Plex Mono',monospace;font-size:22px">$2,150</span><span style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.1em;color:rgba(20,18,14,0.5)">3 BIDS</span></div>
+          </div>
+        </div>
+        <div>
+          <div style="position:relative;aspect-ratio:4/5;background:repeating-linear-gradient(135deg,rgba(20,18,14,0.075) 0 10px,rgba(20,18,14,0.02) 10px 20px);border-bottom:1px solid #14120e">
+            <span style="position:absolute;top:0;left:0;background:#d93c14;color:#fff;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.14em;padding:7px 11px">LOT 018</span>
+            <span style="position:absolute;bottom:0;left:0;right:0;background:#d93c14;color:#fff;font-family:'IBM Plex Mono',monospace;font-size:11px;padding:9px 12px;display:flex;justify-content:space-between"><span style="letter-spacing:0.14em">CLOSING</span><span>45m 12s</span></span>
+          </div>
+          <div style="padding:16px 18px 22px;display:flex;flex-direction:column;gap:9px">
+            <span style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:0.16em;text-transform:uppercase;color:rgba(20,18,14,0.5)">Furniture</span>
+            <h4 style="margin:0;font-family:'Instrument Serif',serif;font-size:28px;line-height:1.02;font-weight:400">Eames LCW, walnut</h4>
+            <div style="display:flex;align-items:baseline;justify-content:space-between;border-top:1px solid rgba(20,18,14,0.18);padding-top:10px"><span style="font-family:'IBM Plex Mono',monospace;font-size:22px;color:#d93c14">$2,480</span><span style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.1em;color:rgba(20,18,14,0.5)">12 BIDS</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div data-screen-label="Mobile · lot" style="width:390px;background:#efe9dc">
+        <div style="position:relative;aspect-ratio:1/1;background:repeating-linear-gradient(135deg,rgba(20,18,14,0.075) 0 11px,rgba(20,18,14,0.02) 11px 22px);border-bottom:1px solid #14120e">
+          <span style="position:absolute;top:0;left:0;background:#d93c14;color:#fff;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.16em;padding:8px 12px">LOT 007</span>
+          <span style="position:absolute;top:14px;right:14px;width:44px;height:44px;border:1px solid #14120e;background:#efe9dc;display:flex;align-items:center;justify-content:center;font-size:15px">←</span>
+          <span style="position:absolute;bottom:12px;left:0;right:0;text-align:center;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.16em;color:rgba(20,18,14,0.5)">01 / 04</span>
+        </div>
+        <div style="padding:20px 18px 16px;border-bottom:1px solid #14120e;display:flex;flex-direction:column;gap:10px">
+          <span style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:0.16em;text-transform:uppercase;color:rgba(20,18,14,0.5)">Cameras · 35mm rangefinder</span>
+          <h3 style="margin:0;font-family:'Instrument Serif',serif;font-size:36px;line-height:0.98;font-weight:400;letter-spacing:-0.02em">Leica M6 body, 1987 <span style="font-style:italic">original chrome</span></h3>
+        </div>
+        <div style="background:#14120e;color:#efe9dc;padding:22px 18px;display:flex;flex-direction:column;gap:20px">
+          <div style="display:flex;justify-content:space-between;gap:14px">
+            <div style="display:flex;flex-direction:column;gap:5px">
+              <span style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:0.18em;text-transform:uppercase;color:rgba(239,233,220,0.5)">Current bid</span>
+              <span style="font-family:'IBM Plex Mono',monospace;font-size:34px;line-height:1">$2,150</span>
+              <span style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.1em;color:rgba(239,233,220,0.5)">3 BIDS</span>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:5px;align-items:flex-end">
+              <span style="font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:0.18em;text-transform:uppercase;color:#f0a98f">Hammer in</span>
+              <span style="font-family:'IBM Plex Mono',monospace;font-size:22px;color:#d93c14">03:22:08</span>
+            </div>
+          </div>
+          <span style="display:flex;align-items:center;justify-content:center;height:54px;background:#d93c14;color:#fff;font-family:'IBM Plex Mono',monospace;font-size:11.5px;letter-spacing:0.18em;text-transform:uppercase">Place bid · min $2,200</span>
+        </div>
+        <div style="padding:18px;border-bottom:1px solid #14120e;display:flex;align-items:center;gap:14px">
+          <span style="width:46px;height:46px;border:1px solid #14120e;display:flex;align-items:center;justify-content:center;font-family:'Instrument Serif',serif;font-size:19px;flex:none">L</span>
+          <div style="flex:1;display:flex;flex-direction:column;gap:4px">
+            <span style="font-family:'Instrument Serif',serif;font-size:21px;line-height:1">leica_lena</span>
+            <span style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.12em;color:rgba(20,18,14,0.6)"><span style="color:#d93c14">★★★★★</span> 4.8 · 27</span>
+          </div>
+          <span style="width:44px;height:44px;border:1px solid #14120e;display:flex;align-items:center;justify-content:center;font-size:15px">✉</span>
+        </div>
+        <div style="padding:18px 18px 24px;display:flex;flex-direction:column;gap:11px">
+          <span style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.18em;text-transform:uppercase;color:rgba(20,18,14,0.5)">Condition report</span>
+          <p style="margin:0;font-size:14.5px;line-height:1.65;color:rgba(20,18,14,0.7)">Serviced last year: new light seals, calibrated meter, smooth shutter across all speeds…</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+
+</x-dc>
+</body>
+</html>

@@ -60,7 +60,7 @@ export default async function ProductPage({ params }: { params: Promise<{ id: st
   const { data: { user } } = await supabase.auth.getUser()
 
   return (
-    <div className="min-h-screen bg-[#07070b] text-white pt-16">
+    <div className="min-h-screen bg-[#efe9dc] text-[#14120e] pt-16">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <ProductClient product={product} currentUser={user} sellerRating={sellerRating} sellerReviewCount={sellerReviewCount} />
       </div>
