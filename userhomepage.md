@@ -1,1 +1,0 @@
-for each item in the user's listed products in the homepage, show a primary image of the item, the price and the title, and make a link of the product to the item's page, we will the design the flow of the item's page later, just make a link for each product to its page.
