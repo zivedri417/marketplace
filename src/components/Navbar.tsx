@@ -54,7 +54,7 @@ export async function Navbar() {
 
             {user ? (
               <Link
-                href="/profile"
+                href={`/user/${user.id}`}
                 className="flex-shrink-0 w-[38px] h-[38px] border border-[#14120e] flex items-center justify-center font-serif text-lg text-[#14120e] hover:bg-[#14120e]/5 transition-colors"
                 title="Profile"
               >
